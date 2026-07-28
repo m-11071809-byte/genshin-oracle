@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>☕ Genshin Coffee Oracle | Teyvat Caffeine Vision</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #e0f7fa 0%, #fffde7 100%);
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(218, 165, 32, 0.15);
+      max-width: 460px;
+      width: 100%;
+      text-align: center;
+      border: 3px solid #b89f6b;
+      position: relative;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    /* ======================================================== */
+    /* 🌟 SPECIAL EFFECTS FOR JITTER LEVELS 1 TO 5              */
+    /* ======================================================== */
+
+    /* --- LEVEL 1: Anemo Calm (Soft Green Breathing) --- */
+    .lvl-1-aura {
+      box-shadow: 0 0 20px rgba(76, 209, 149, 0.4) !important;
+      border-color: #4cd195 !important;
+      animation: breath1 3s ease-in-out infinite alternate;
+    }
+    @keyframes breath1 {
+      0% { box-shadow: 0 0 10px rgba(76, 209, 149, 0.2); }
+      100% { box-shadow: 0 0 25px rgba(76, 209, 149, 0.6); }
+    }
+
+    /* --- LEVEL 2: Hydro Charge (Steady Cyan Pulse) --- */
+    .lvl-2-aura {
+      box-shadow: 0 0 25px rgba(0, 229, 255, 0.5) !important;
+      border-color: #00e5ff !important;
+      animation: pulse2 1.5s ease-in-out infinite alternate;
+    }
+    @keyframes pulse2 {
+      0% { box-shadow: 0 0 15px rgba(0, 229, 255, 0.3); }
+      100% { box-shadow: 0 0 35px rgba(0, 229, 255, 0.8); }
+    }
+
+    /* --- LEVEL 3: Electro Resonance (Purple Sparks + Micro-Shake) --- */
+    .lvl-3-aura {
+      box-shadow: 0 0 30px #a855f7, 0 0 50px #7e22ce !important;
+      border-color: #c084fc !important;
+      animation: spark3 0.6s infinite alternate, shake3 0.3s infinite;
+    }
+    @keyframes spark3 {
+      from { box-shadow: 0 0 15px #a855f7; }
+      to { box-shadow: 0 0 40px #e879f9, 0 0 60px #a855f7; }
+    }
+    @keyframes shake3 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(1px, -1px); }
+    }
+
+    /* --- LEVEL 4: Pyro Burst (Fiery Gold + Medium Shake) --- */
+    .lvl-4-aura {
+      box-shadow: 0 0 30px #ff5722, 0 0 60px #ff9800 !important;
+      border-color: #ff7043 !important;
+      animation: burst4 0.4s infinite alternate, shake4 0.15s infinite;
+    }
+    @keyframes burst4 {
+      from { box-shadow: 0 0 20px #ff5722; }
+      to { box-shadow: 0 0 50px #ff9800, 0 0 80px #ffe082; }
+    }
+    @keyframes shake4 {
+      0% { transform: translate(1px, 1px) rotate(0deg); }
+      50% { transform: translate(-2px, -1px) rotate(-1deg); }
+      100% { transform: translate(2px, 1px) rotate(1deg); }
+    }
+
+    /* --- LEVEL 5: C6 Constellation Overload (Rainbow Glitch + Violent Shake) --- */
+    .lvl-5-aura {
+      border-color: #ff0055 !important;
+      animation: rainbowGlitch5 1.5s linear infinite, shake5 0.08s infinite;
+    }
+    @keyframes rainbowGlitch5 {
+      0% { box-shadow: 0 0 30px #ff0055, 0 0 60px #00e5ff; filter: hue-rotate(0deg); }
+      50% { box-shadow: 0 0 40px #7000ff, 0 0 80px #ffea00; filter: hue-rotate(180deg); }
+      100% { box-shadow: 0 0 30px #ff0055, 0 0 60px #00e5ff; filter: hue-rotate(360deg); }
+    }
+    @keyframes shake5 {
+      0% { transform: translate(2px, 2px) rotate(0deg) scale(1.01); }
+      25% { transform: translate(-3px, -2px) rotate(-1.5deg) scale(0.99); }
+      50% { transform: translate(2px, -2px) rotate(1.5deg) scale(1.02); }
+      75% { transform: translate(-2px, 3px) rotate(-1deg) scale(0.98); }
+      100% { transform: translate(1px, -2px) rotate(1deg) scale(1.01); }
+    }
+    /* ======================================================== */
+
+    h1 {
+      margin-top: 0;
+      color: #3e4a5e;
+      font-size: 1.8rem;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .badge {
+      background: #b89f6b;
+      color: #fffde7;
+      padding: 0.2rem 0.8rem;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      display: inline-block;
+      margin-bottom: 0.8rem;
+      letter-spacing: 1px;
+    }Here is the updated code with **5 distinct visual special effects**—one for every Elemental Overload / Jitter level. 
+
+Each level now features custom Genshin-inspired element themes:
+* **Level 1 (Mortal Calm):** Soft Anemo/Dendro mint glow with a gentle breathing effect.
+* **Level 2 (Charged Up):** Hydro/Cryo cool blue pulse with a steady electric aura.
+* **Level 3 (Elemental Resonance):** Electro purple resonance with shifting border colors.
+* **Level 4 (Elemental Burst):** Intense Pyro fire orange flare with a jittery camera shake.
+* **Level 5 (C6 Constellation Overload):** Full rainbow hue-shifting overload with hyper chaotic shaking!
+
+---
+
+### Updated HTML, CSS, and JavaScript Code
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>☕ Genshin Coffee Oracle | Teyvat Caffeine Vision</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #e0f7fa 0%, #fffde7 100%);
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(218, 165, 32, 0.15);
+      max-width: 460px;
+      width: 100%;
+      text-align: center;
+      border: 3px solid #b89f6b;
+      position: relative;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    /* ========================================= */
+    /* Dynamic Jitter Level Special Effects      */
+    /* ========================================= */
+
+    /* LEVEL 1: Mortal Calm (Anemo / Dendro Mint Glow) */
+    .effect-level-1 {
+      border-color: #80cbc4 !important;
+      box-shadow: 0 0 18px rgba(128, 203, 196, 0.6) !important;
+      animation: calmBreathe 3s ease-in-out infinite alternate;
+    }
+    @keyframes calmBreathe {
+      from { box-shadow: 0 0 10px rgba(128, 203, 196, 0.4); }
+      to { box-shadow: 0 0 25px rgba(128, 203, 196, 0.8), 0 0 40px rgba(167, 255, 235, 0.4); }
+    }
+
+    /* LEVEL 2: Charged Up (Hydro / Cryo Cyan Pulse) */
+    .effect-level-2 {
+      border-color: #4dd0e1 !important;
+      box-shadow: 0 0 20px #4dd0e1, inset 0 0 10px rgba(77, 208, 225, 0.3) !important;
+      animation: chargedPulse 1.5s infinite alternate;
+    }
+    @keyframes chargedPulse {
+      from { box-shadow: 0 0 15px #4dd0e1; }
+      to { box-shadow: 0 0 35px #00e5ff, 0 0 15px #80d8ff; }
+    }
+
+    /* LEVEL 3: Elemental Resonance (Electro Shifting Purple) */
+    .effect-level-3 {
+      border-color: #b388ff !important;
+      box-shadow: 0 0 25px #b388ff, 0 0 45px #7c4dff !important;
+      animation: resonancePulse 1s infinite alternate;
+    }
+    @keyframes resonancePulse {
+      0% { box-shadow: 0 0 20px #b388ff, 0 0 35px #7c4dff; border-color: #b388ff !important; }
+      100% { box-shadow: 0 0 40px #e040fb, 0 0 60px #651fff; border-color: #e040fb !important; }
+    }
+
+    /* LEVEL 4: Elemental Burst (Pyro Fiery Flare + Gentle Shake) */
+    .effect-level-4 {
+      border-color: #ff9100 !important;
+      box-shadow: 0 0 30px #ff9100, 0 0 60px #ff3d00 !important;
+      animation: burstPulse 0.5s infinite alternate, microShake 0.15s infinite;
+    }
+    @keyframes burstPulse {
+      from { box-shadow: 0 0 20px #ff9100; }
+      to { box-shadow: 0 0 50px #ff3d00, 0 0 80px #ffea00; }
+    }
+    @keyframes microShake {
+      0% { transform: translate(1px, 1px) rotate(0deg); }
+      50% { transform: translate(-1px, -1px) rotate(-0.5deg); }
+      100% { transform: translate(1px, -1px) rotate(0.5deg); }
+    }
+
+    /* LEVEL 5: C6 Constellation Overload (Cosmic Rainbow Glitch + Violent Shake) */
+    .effect-level-5 {
+      border-color: #ff0055 !important;
+      animation: overloadHue 1.2s linear infinite, violentShake 0.08s infinite alternate;
+    }
+    @keyframes overloadHue {
+      0% { filter: hue-rotate(0deg); box-shadow: 0 0 35px #ff0055, 0 0 70px #00ffff; }
+      50% { filter: hue-rotate(180deg); box-shadow: 0 0 50px #00ff66, 0 0 90px #ff00ff; }
+      100% { filter: hue-rotate(360deg); box-shadow: 0 0 35px #ff0055, 0 0 70px #00ffff; }
+    }
+    @keyframes violentShake {
+      0% { transform: translate(2px, 2px) rotate(0deg); }
+      25% { transform: translate(-3px, -2px) rotate(-1.5deg); }
+      50% { transform: translate(3px, 1px) rotate(1.5deg); }
+      75% { transform: translate(-1px, 3px) rotate(-1deg); }
+      100% { transform: translate(2px, -2px) rotate(1deg); }
+    }
+
+    /* ========================================= */
+
+    h1 {
+      margin-top: 0;
+      color: #3e4a5e;
+      font-size: 1.8rem;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .badge {
+      background: #b89f6b;
+      color: #fffde7;
+      padding: 0.2rem 0.8rem;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      display: inline-block;
+      margin-bottom: 0.8rem;
+      letter-spacing: 1px;
+    }
+
+    label {
+      display: block;
+      margin: 0.9rem 0 0.3rem;
+      text-align: left;
+      font-weight: bold;
+      font-size: 0.85rem;
+      color: #5c6b7f;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 10px;
+      border: 2px solid #e0e0e0;
+      box-sizing: border-box;
+      font-size: 0.95rem;
+      outline: none;
+      background-color: #fafafa;
+    }
+
+    input:focus, select:focus {
+      border-color: #b89f6b;
+      background-color: white;
+    }
+
+    button.primary {
+      margin-top: 1.5rem;
+      background: linear-gradient(45deg, #3e4a5e, #5c6b7f);
+      color: white;
+      border: none;
+      font-weight: bold;
+      font-size: 1.05rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(62, 74, 94, 0.3);
+      transition: transform 0.1s ease, box-shadow 0.2s ease;
+      letter-spacing: 1px;
+    }
+
+    button.primary:active {
+      transform: scale(0.98);
+      box-shadow: 0 2px 6px rgba(62, 74, 94, 0.3);
+    }
+
+    .counter-box {
+      background: #fffde7;
+      border: 2px dashed #b89f6b;
+      padding: 0.6rem 1rem;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .counter-btn {
+      width: auto;
+      padding: 0.3rem 0.8rem;
+      margin-left: 0.3rem;
+      background: #3e4a5e;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+
+    .audio-player-box {
+      background: #f0f4f8;
+      border: 1px solid #d0d7de;
+      padding: 0.5rem 0.8rem;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      gap: 10px;
+    }
+
+    .audio-player-box button {
+      width: auto;
+      padding: 0.3rem 0.6rem;
+      font-size: 0.8rem;
+      background: #3e4a5e;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .volume-slider {
+      width: 80px !important;
+      padding: 0 !important;
+      cursor: pointer;
+    }
+
+    .character-portrait-container {
+      margin-top: 1.5rem;
+      min-height: 200px;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .character-portrait-container.show {
+      display: flex;
+      opacity: 1;
+    }
+
+    .character-portrait {
+      max-width: 80%;
+      max-height: 250px;
+      height: auto;
+      filter: drop-shadow(0 0 10px rgba(218, 165, 32, 0.3));
+    }
+
+    .result {
+      margin-top: 1rem;
+      padding: 1.2rem;
+      border-radius: 12px;
+      font-weight: bold;
+      background: white;
+      border: 2px solid #b89f6b;
+      line-height: 1.5;
+      text-align: left;
+      position: relative;
+    }
+
+    .result::after {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 0 10px 10px 10px;
+      border-style: solid;
+      border-color: transparent transparent #b89f6b transparent;
+    }
+
+    .persona-quote {
+      font-style: italic;
+      color: #5c6b7f;
+      margin-top: 0.6rem;
+      font-size: 0.9rem;
+      border-top: 1px solid #eee;
+      padding-top: 0.6rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card" id="mainCard">
+    <span class="badge">✨ TEYVAT BRANCH ✨</span>
+    <h1>☕ Caffeine Oracle</h1>
+    
+    <!-- Audio Player Controls -->
+    <div class="audio-player-box">
+      <button id="bgmToggleBtn" onclick="toggleBGM()">🎵 BGM: Off</button>
+      <div style="display: flex; align-items: center; gap: 5px; font-size: 0.8rem; color: #5c6b7f;">
+        🔊 <input type="range" id="volumeControl" class="volume-slider" min="0" max="1" step="0.1" value="0.3" onchange="adjustVolume(this.value)">
+      </div>
+    </div>
+
+    <!-- Daily Counter -->
+    <div class="counter-box">
+      <span>Today's Energy Intake: <strong id="cupCount">0</strong> ☕</span>
+      <div>
+        <button class="counter-btn" onclick="adjustCups(1)">+1</button>
+        <button class="counter-btn" onclick="adjustCups(-1)">-1</button>
+      </div>
+    </div>
+
+    <!-- Mentor Selection -->
+    <label for="persona" onchange="changePersonaMusic()">Select your Genshin Mentor:</label>
+    <select id="persona" onchange="changePersonaMusic()">
+      <option value="tsundere">Tsundere (Citlali)</option>
+      <option value="shonen">Shonen Hero (Chongyun)</option>
+      <option value="demon">Dark Lord (Wriothesley)</option>
+    </select>
+    
+    <label for="bedtime">Planned "Log Off" Bedtime:</label>
+    <input type="time" id="bedtime" value="23:00">
+
+    <label for="jitter">Elemental Overload / Jitter Level:</label>
+    <select id="jitter" onchange="updateAura()">
+      <option value="1">Level 1: Mortal Calm 🧘</option>
+      <option value="2">Level 2: Charged Up 🚶</option>
+      <option value="3">Level 3: Elemental Resonance ⚡</option>
+      <option value="4">Level 4: Elemental Burst 💥</option>
+      <option value="5">Level 5: C6 Constellation Overload 🌀</option>
+    </select>
+
+    <button class="primary" onclick="consultOracle()">✨ SUMMON VERDICT ✨</button>
+
+    <!-- Character Image Container -->
+    <div id="characterPortraitContainer" class="character-portrait-container">
+      <img id="characterPortrait" src="" alt="Genshin Character Portrait" class="character-portrait">
+    </div>
+
+    <div id="result" class="result" style="display: none;"></div>
+  </div>
+
+  <audio id="bgmAudio" loop></audio>
+
+  <script>
+    const characterImageData = {
+      'tsundere': 'Citlali sticker 4_5.jpg',
+      'shonen':   'Chongyun !.jpg',
+      'demon':    '★ Wriothesley.jpg'
+    };
+
+    const characterAudioData = {
+      'tsundere': 'Beneath the Mask -instrumental version-.mp3',
+      'shonen':   'Color Your Night (Instrumental).mp3',
+      'demon':    'Heaven (Instrumental).mp3'
+    };
+
+    const genshinDrinks = [
+      "🌿 Adeptus Special Mint Brew",
+      "🥂 Dawn Winery Grape Juice (Decaf)",
+      "🥛 Mondstadt Warm Milk",
+      "🧪 Sucrose's Special Alchemy Elixir (Decaf)"
+    ];
+
+    const bgm = document.getElementById('bgmAudio');
+    let isMusicPlaying = false;
+    bgm.volume = 0.3;
+
+    function toggleBGM() {
+      const btn = document.getElementById('bgmToggleBtn');
+      if (isMusicPlaying) {
+        bgm.pause();
+        isMusicPlaying = false;
+        btn.innerText = "🎵 BGM: Off";
+      } else {
+        playMusicForCurrentPersona();
+      }
+    }
+
+    function adjustVolume(val) {
+      bgm.volume = val;
+    }
+
+    function changePersonaMusic() {
+      if (isMusicPlaying) {
+        playMusicForCurrentPersona();
+      }
+    }
+
+    function playMusicForCurrentPersona() {
+      const persona = document.getElementById('persona').value;
+      const audioFile = characterAudioData[persona];
+      const btn = document.getElementById('bgmToggleBtn');
+
+      if (audioFile && !audioFile.startsWith('REPLACE_WITH')) {
+        if (!bgm.src.endsWith(audioFile)) {
+          bgm.src = audioFile;
+        }
+        bgm.play().then(() => {
+          isMusicPlaying = true;
+          btn.innerText = "🎵 BGM: Playing";
+        }).catch(err => {
+          console.log("Browser prevented autoplay. User must interact first.");
+        });
+      }
+    }
+
+    let cups = parseInt(localStorage.getItem('genshinCoffeeCount')) || 0;
+    document.getElementById('cupCount').innerText = cups;
+
+    function adjustCups(amount) {
+      cups = Math.max(0, cups + amount);
+      localStorage.setItem('genshinCoffeeCount', cups);
+      document.getElementById('cupCount').innerText = cups;
+    }
+
+    // ========================================================
+    // Dynamic Aura Update Logic for All 5 Levels
+    // ========================================================
+    function updateAura() {
+      const jitter = parseInt(document.getElementById('jitter').value);
+      const card = document.getElementById('mainCard');
+      
+      // Clear previous level classes
+      card.classList.remove('effect-level-1', 'effect-level-2', 'effect-level-3', 'effect-level-4', 'effect-level-5');
+      
+      // Apply class corresponding to current level
+      if (jitter >= 1 && jitter <= 5) {
+        card.classList.add(`effect-level-${jitter}`);
+      }
+    }
+
+    // Initialize Aura on startup
+    window.addEventListener('DOMContentLoaded', updateAura);
+
+    function consultOracle() {
+      if (!isMusicPlaying) {
+        playMusicForCurrentPersona();
+      }
+
+      const bedtimeInput = document.getElementById('bedtime').value;
+      const jitter = parseInt(document.getElementById('jitter').value);
+      const persona = document.getElementById('persona').value;
+      const resultDiv = document.getElementById('result');
+      const portraitContainer = document.getElementById('characterPortraitContainer');
+      const portraitImg = document.getElementById('characterPortrait');
+
+      if (!bedtimeInput) {
+        resultDiv.innerText = "Please set a log-off time first!";
+        resultDiv.style.display = 'block';
+        portraitContainer.classList.remove('show');
+        return;
+      }
+
+      const now = new Date();
+      const [bedHour, bedMin] = bedtimeInput.split(':').map(Number);
+      let bedtime = new Date();
+      bedtime.setHours(bedHour, bedMin, 0, 0);
+
+      if (bedtime < now) bedtime.setDate(bedtime.getDate() + 1);
+      const hoursUntilBed = (bedtime - now) / (1000 * 60 * 60);
+
+      const imageFile = characterImageData[persona];
+      if (imageFile && !imageFile.startsWith('REPLACE_WITH')) {
+        portraitImg.src = imageFile;
+        portraitContainer.classList.add('show');
+      } else {
+        portraitContainer.classList.remove('show');
+      }
+
+      let isAllowed = true;
+      let reason = "";
+
+      if (jitter >= 4) {
+        isAllowed = false;
+        reason = "Your elemental overload (jitter) is maxed out! Drinking more will cause an elemental reaction meltdown!";
+      } else if (hoursUntilBed < 6) {
+        isAllowed = false;
+        reason = `Bedtime is in ${hoursUntilBed.toFixed(1)} hours! Drink now and you'll wander Mondstadt as a restless phantom all night!`;
+      } else if (cups >= 4) {
+        isAllowed = false;
+        reason = "You've already consumed 4+ cups today! Your elemental reserves need to recharge!";
+      } else {
+        isAllowed = true;
+        reason = "You have room in your energy bar. The Adventurers' Guild contract is fulfilled!";
+      }
+
+      let personaMessage = "";
+      if (persona === "tsundere") {
+        personaMessage = isAllowed 
+          ? "“Hmph, fine! Drink it if you want! It's not like I brewed extra just because I was worried you were tired or anything... dummy (B-Baka)!”" 
+          : "“Stop right there, idiot! Drink any more and you won't sleep at all! I... I definitely don't want to stay up all night keeping you company!”";
+      } else if (persona === "shonen") {
+        personaMessage = isAllowed 
+          ? "“All right! Ignite your caffeine spirit! Push past your limits and let's keep exploring today! PLUS ULTRA! 🔥”" 
+          : "“Halt! A true adventurer knows when to rest and recover! Sleep well tonight so we can team up tomorrow!”";
+      } else if (persona === "demon") {
+        personaMessage = isAllowed 
+          ? "“Heh, I grant you permission to partake in this dark elixir... Unleash the sealed power within you! Bwahahaha!”" 
+          : "“Warning! Your mortal body cannot withstand the abyss of the black nectar (Coffee)! Step back from this forbidden power!”";
+      }
+
+      let html = `<div><strong>Verdict:</strong> ${isAllowed ? "✅ APPROVED (Brew Away)" : "❌ DENIED (Step Away)"}</div>`;
+      html += `<div style="margin-top:0.3rem;">${reason}</div>`;
+      html += `<div class="persona-quote">${personaMessage}</div>`;
+
+      if (!isAllowed) {
+        const randomAlt = genshinDrinks[Math.floor(Math.random() * genshinDrinks.length)];
+        html += `<div style="margin-top:0.6rem; font-size:0.85rem; color:#888;">🍵 Recommended Alternative Elixir: <strong>${randomAlt}</strong></div>`;
+      }
+
+      resultDiv.innerHTML = html;
+      resultDiv.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
