@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>☕ Genshin Coffee Oracle | Teyvat Caffeine Vision</title>
+  <title>☕ Genshin Reflex Master | 反应力实验室与英雄榜</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -21,10 +21,10 @@
     .card {
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
-      padding: 2rem;
+      padding: 1.5rem;
       border-radius: 20px;
       box-shadow: 0 15px 35px rgba(218, 165, 32, 0.15);
-      max-width: 460px;
+      max-width: 480px;
       width: 100%;
       text-align: center;
       border: 3px solid #b89f6b;
@@ -33,610 +33,618 @@
       overflow: hidden;
     }
 
-    /* ======================================================== */
-    /* 🌟 SPECIAL EFFECTS FOR JITTER LEVELS 1 TO 5              */
-    /* ======================================================== */
+    /* Jitter Border Effects */
+    .effect-level-1 { border-color: #80cbc4 !important; box-shadow: 0 0 18px rgba(128, 203, 196, 0.6) !important; }
+    .effect-level-2 { border-color: #4dd0e1 !important; box-shadow: 0 0 20px #4dd0e1 !important; }
+    .effect-level-3 { border-color: #b388ff !important; box-shadow: 0 0 25px #b388ff !important; }
+    .effect-level-4 { border-color: #ff9100 !important; box-shadow: 0 0 30px #ff9100 !important; }
+    .effect-level-5 { border-color: #ff0055 !important; animation: overloadHue 1.2s linear infinite; }
+    @keyframes overloadHue { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
 
-    /* --- LEVEL 1: Anemo Calm (Soft Green Breathing) --- */
-    .lvl-1-aura {
-      box-shadow: 0 0 20px rgba(76, 209, 149, 0.4) !important;
-      border-color: #4cd195 !important;
-      animation: breath1 3s ease-in-out infinite alternate;
-    }
-    @keyframes breath1 {
-      0% { box-shadow: 0 0 10px rgba(76, 209, 149, 0.2); }
-      100% { box-shadow: 0 0 25px rgba(76, 209, 149, 0.6); }
-    }
+    h1 { margin-top: 0; color: #3e4a5e; font-size: 1.4rem; }
+    .badge { background: #b89f6b; color: #fffde7; padding: 0.2rem 0.8rem; border-radius: 12px; font-size: 0.8rem; font-weight: bold; display: inline-block; margin-bottom: 0.5rem; }
+    label { display: block; margin: 0.5rem 0 0.2rem; text-align: left; font-weight: bold; font-size: 0.85rem; color: #5c6b7f; }
+    input, select, button { width: 100%; padding: 0.6rem; border-radius: 10px; border: 2px solid #e0e0e0; font-size: 0.9rem; outline: none; background-color: #fafafa; box-sizing: border-box; }
+    
+    .name-input-group { margin-bottom: 0.6rem; text-align: left; }
+    .name-input-group input { border: 2px solid #b89f6b; background: #fff8e1; font-weight: bold; }
 
-    /* --- LEVEL 2: Hydro Charge (Steady Cyan Pulse) --- */
-    .lvl-2-aura {
-      box-shadow: 0 0 25px rgba(0, 229, 255, 0.5) !important;
-      border-color: #00e5ff !important;
-      animation: pulse2 1.5s ease-in-out infinite alternate;
-    }
-    @keyframes pulse2 {
-      0% { box-shadow: 0 0 15px rgba(0, 229, 255, 0.3); }
-      100% { box-shadow: 0 0 35px rgba(0, 229, 255, 0.8); }
-    }
+    .btn-group { display: flex; gap: 0.4rem; margin-top: 0.8rem; }
+    button.primary { background: linear-gradient(45deg, #3e4a5e, #5c6b7f); color: white; border: none; font-weight: bold; cursor: pointer; }
+    button.gacha-btn { background: linear-gradient(45deg, #ff9100, #ff5722); color: white; border: none; font-weight: bold; cursor: pointer; }
+    button.inventory-btn { background: linear-gradient(45deg, #ab47bc, #7e57c2); color: white; border: none; font-weight: bold; cursor: pointer; }
+    button.rank-btn { background: linear-gradient(45deg, #0288d1, #0097a7); color: white; border: none; font-weight: bold; cursor: pointer; }
 
-    /* --- LEVEL 3: Electro Resonance (Purple Sparks + Micro-Shake) --- */
-    .lvl-3-aura {
-      box-shadow: 0 0 30px #a855f7, 0 0 50px #7e22ce !important;
-      border-color: #c084fc !important;
-      animation: spark3 0.6s infinite alternate, shake3 0.3s infinite;
-    }
-    @keyframes spark3 {
-      from { box-shadow: 0 0 15px #a855f7; }
-      to { box-shadow: 0 0 40px #e879f9, 0 0 60px #a855f7; }
-    }
-    @keyframes shake3 {
-      0%, 100% { transform: translate(0, 0); }
-      50% { transform: translate(1px, -1px); }
-    }
-
-    /* --- LEVEL 4: Pyro Burst (Fiery Gold + Medium Shake) --- */
-    .lvl-4-aura {
-      box-shadow: 0 0 30px #ff5722, 0 0 60px #ff9800 !important;
-      border-color: #ff7043 !important;
-      animation: burst4 0.4s infinite alternate, shake4 0.15s infinite;
-    }
-    @keyframes burst4 {
-      from { box-shadow: 0 0 20px #ff5722; }
-      to { box-shadow: 0 0 50px #ff9800, 0 0 80px #ffe082; }
-    }
-    @keyframes shake4 {
-      0% { transform: translate(1px, 1px) rotate(0deg); }
-      50% { transform: translate(-2px, -1px) rotate(-1deg); }
-      100% { transform: translate(2px, 1px) rotate(1deg); }
-    }
-
-    /* --- LEVEL 5: C6 Constellation Overload (Rainbow Glitch + Violent Shake) --- */
-    .lvl-5-aura {
-      border-color: #ff0055 !important;
-      animation: rainbowGlitch5 1.5s linear infinite, shake5 0.08s infinite;
-    }
-    @keyframes rainbowGlitch5 {
-      0% { box-shadow: 0 0 30px #ff0055, 0 0 60px #00e5ff; filter: hue-rotate(0deg); }
-      50% { box-shadow: 0 0 40px #7000ff, 0 0 80px #ffea00; filter: hue-rotate(180deg); }
-      100% { box-shadow: 0 0 30px #ff0055, 0 0 60px #00e5ff; filter: hue-rotate(360deg); }
-    }
-    @keyframes shake5 {
-      0% { transform: translate(2px, 2px) rotate(0deg) scale(1.01); }
-      25% { transform: translate(-3px, -2px) rotate(-1.5deg) scale(0.99); }
-      50% { transform: translate(2px, -2px) rotate(1.5deg) scale(1.02); }
-      75% { transform: translate(-2px, 3px) rotate(-1deg) scale(0.98); }
-      100% { transform: translate(1px, -2px) rotate(1deg) scale(1.01); }
-    }
-    /* ======================================================== */
-
-    h1 {
-      margin-top: 0;
-      color: #3e4a5e;
-      font-size: 1.8rem;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-    }
-
-    .badge {
-      background: #b89f6b;
-      color: #fffde7;
-      padding: 0.2rem 0.8rem;
-      border-radius: 12px;
-      font-size: 0.8rem;
-      font-weight: bold;
-      display: inline-block;
-      margin-bottom: 0.8rem;
-      letter-spacing: 1px;
-    }Here is the updated code with **5 distinct visual special effects**—one for every Elemental Overload / Jitter level. 
-
-Each level now features custom Genshin-inspired element themes:
-* **Level 1 (Mortal Calm):** Soft Anemo/Dendro mint glow with a gentle breathing effect.
-* **Level 2 (Charged Up):** Hydro/Cryo cool blue pulse with a steady electric aura.
-* **Level 3 (Elemental Resonance):** Electro purple resonance with shifting border colors.
-* **Level 4 (Elemental Burst):** Intense Pyro fire orange flare with a jittery camera shake.
-* **Level 5 (C6 Constellation Overload):** Full rainbow hue-shifting overload with hyper chaotic shaking!
-
----
-
-### Updated HTML, CSS, and JavaScript Code
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>☕ Genshin Coffee Oracle | Teyvat Caffeine Vision</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #e0f7fa 0%, #fffde7 100%);
-      color: #333;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      padding: 1rem;
-      box-sizing: border-box;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 15px 35px rgba(218, 165, 32, 0.15);
-      max-width: 460px;
-      width: 100%;
-      text-align: center;
-      border: 3px solid #b89f6b;
-      position: relative;
-      transition: all 0.3s ease;
-      overflow: hidden;
-    }
-
-    /* ========================================= */
-    /* Dynamic Jitter Level Special Effects      */
-    /* ========================================= */
-
-    /* LEVEL 1: Mortal Calm (Anemo / Dendro Mint Glow) */
-    .effect-level-1 {
-      border-color: #80cbc4 !important;
-      box-shadow: 0 0 18px rgba(128, 203, 196, 0.6) !important;
-      animation: calmBreathe 3s ease-in-out infinite alternate;
-    }
-    @keyframes calmBreathe {
-      from { box-shadow: 0 0 10px rgba(128, 203, 196, 0.4); }
-      to { box-shadow: 0 0 25px rgba(128, 203, 196, 0.8), 0 0 40px rgba(167, 255, 235, 0.4); }
-    }
-
-    /* LEVEL 2: Charged Up (Hydro / Cryo Cyan Pulse) */
-    .effect-level-2 {
-      border-color: #4dd0e1 !important;
-      box-shadow: 0 0 20px #4dd0e1, inset 0 0 10px rgba(77, 208, 225, 0.3) !important;
-      animation: chargedPulse 1.5s infinite alternate;
-    }
-    @keyframes chargedPulse {
-      from { box-shadow: 0 0 15px #4dd0e1; }
-      to { box-shadow: 0 0 35px #00e5ff, 0 0 15px #80d8ff; }
-    }
-
-    /* LEVEL 3: Elemental Resonance (Electro Shifting Purple) */
-    .effect-level-3 {
-      border-color: #b388ff !important;
-      box-shadow: 0 0 25px #b388ff, 0 0 45px #7c4dff !important;
-      animation: resonancePulse 1s infinite alternate;
-    }
-    @keyframes resonancePulse {
-      0% { box-shadow: 0 0 20px #b388ff, 0 0 35px #7c4dff; border-color: #b388ff !important; }
-      100% { box-shadow: 0 0 40px #e040fb, 0 0 60px #651fff; border-color: #e040fb !important; }
-    }
-
-    /* LEVEL 4: Elemental Burst (Pyro Fiery Flare + Gentle Shake) */
-    .effect-level-4 {
-      border-color: #ff9100 !important;
-      box-shadow: 0 0 30px #ff9100, 0 0 60px #ff3d00 !important;
-      animation: burstPulse 0.5s infinite alternate, microShake 0.15s infinite;
-    }
-    @keyframes burstPulse {
-      from { box-shadow: 0 0 20px #ff9100; }
-      to { box-shadow: 0 0 50px #ff3d00, 0 0 80px #ffea00; }
-    }
-    @keyframes microShake {
-      0% { transform: translate(1px, 1px) rotate(0deg); }
-      50% { transform: translate(-1px, -1px) rotate(-0.5deg); }
-      100% { transform: translate(1px, -1px) rotate(0.5deg); }
-    }
-
-    /* LEVEL 5: C6 Constellation Overload (Cosmic Rainbow Glitch + Violent Shake) */
-    .effect-level-5 {
-      border-color: #ff0055 !important;
-      animation: overloadHue 1.2s linear infinite, violentShake 0.08s infinite alternate;
-    }
-    @keyframes overloadHue {
-      0% { filter: hue-rotate(0deg); box-shadow: 0 0 35px #ff0055, 0 0 70px #00ffff; }
-      50% { filter: hue-rotate(180deg); box-shadow: 0 0 50px #00ff66, 0 0 90px #ff00ff; }
-      100% { filter: hue-rotate(360deg); box-shadow: 0 0 35px #ff0055, 0 0 70px #00ffff; }
-    }
-    @keyframes violentShake {
-      0% { transform: translate(2px, 2px) rotate(0deg); }
-      25% { transform: translate(-3px, -2px) rotate(-1.5deg); }
-      50% { transform: translate(3px, 1px) rotate(1.5deg); }
-      75% { transform: translate(-1px, 3px) rotate(-1deg); }
-      100% { transform: translate(2px, -2px) rotate(1deg); }
-    }
-
-    /* ========================================= */
-
-    h1 {
-      margin-top: 0;
-      color: #3e4a5e;
-      font-size: 1.8rem;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-    }
-
-    .badge {
-      background: #b89f6b;
-      color: #fffde7;
-      padding: 0.2rem 0.8rem;
-      border-radius: 12px;
-      font-size: 0.8rem;
-      font-weight: bold;
-      display: inline-block;
-      margin-bottom: 0.8rem;
-      letter-spacing: 1px;
-    }
-
-    label {
-      display: block;
-      margin: 0.9rem 0 0.3rem;
-      text-align: left;
-      font-weight: bold;
-      font-size: 0.85rem;
-      color: #5c6b7f;
-    }
-
-    input, select, button {
-      width: 100%;
-      padding: 0.75rem;
-      border-radius: 10px;
-      border: 2px solid #e0e0e0;
-      box-sizing: border-box;
-      font-size: 0.95rem;
-      outline: none;
-      background-color: #fafafa;
-    }
-
-    input:focus, select:focus {
-      border-color: #b89f6b;
-      background-color: white;
-    }
-
-    button.primary {
-      margin-top: 1.5rem;
-      background: linear-gradient(45deg, #3e4a5e, #5c6b7f);
-      color: white;
-      border: none;
-      font-weight: bold;
-      font-size: 1.05rem;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(62, 74, 94, 0.3);
-      transition: transform 0.1s ease, box-shadow 0.2s ease;
-      letter-spacing: 1px;
-    }
-
-    button.primary:active {
-      transform: scale(0.98);
-      box-shadow: 0 2px 6px rgba(62, 74, 94, 0.3);
-    }
-
-    .counter-box {
-      background: #fffde7;
-      border: 2px dashed #b89f6b;
-      padding: 0.6rem 1rem;
-      border-radius: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.5rem;
-    }
-
-    .counter-btn {
-      width: auto;
-      padding: 0.3rem 0.8rem;
-      margin-left: 0.3rem;
-      background: #3e4a5e;
-      color: white;
-      border: none;
-      cursor: pointer;
-      border-radius: 6px;
-    }
-
-    .audio-player-box {
-      background: #f0f4f8;
-      border: 1px solid #d0d7de;
-      padding: 0.5rem 0.8rem;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1rem;
-      gap: 10px;
-    }
-
-    .audio-player-box button {
-      width: auto;
-      padding: 0.3rem 0.6rem;
-      font-size: 0.8rem;
-      background: #3e4a5e;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    .volume-slider {
-      width: 80px !important;
-      padding: 0 !important;
-      cursor: pointer;
-    }
-
-    .character-portrait-container {
-      margin-top: 1.5rem;
-      min-height: 200px;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-
-    .character-portrait-container.show {
-      display: flex;
-      opacity: 1;
-    }
-
-    .character-portrait {
-      max-width: 80%;
-      max-height: 250px;
-      height: auto;
-      filter: drop-shadow(0 0 10px rgba(218, 165, 32, 0.3));
-    }
-
-    .result {
-      margin-top: 1rem;
-      padding: 1.2rem;
-      border-radius: 12px;
-      font-weight: bold;
-      background: white;
+    /* RUNNER GAME CANVAS */
+    .game-container {
+      margin: 0.8rem 0;
+      background: #e0f2fe;
       border: 2px solid #b89f6b;
-      line-height: 1.5;
-      text-align: left;
+      border-radius: 12px;
+      overflow: hidden;
       position: relative;
     }
+    canvas { display: block; width: 100%; height: 160px; }
+    .game-controls { display: flex; justify-content: space-between; padding: 0.4rem 0.8rem; background: #fffde7; font-size: 0.85rem; font-weight: bold; color: #5c6b7f; }
+    .jump-btn { background: #3e4a5e; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; width: auto; margin: 0.4rem 0; font-weight: bold; }
 
-    .result::after {
-      content: '';
-      position: absolute;
-      top: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      border-width: 0 10px 10px 10px;
-      border-style: solid;
-      border-color: transparent transparent #b89f6b transparent;
-    }
-
-    .persona-quote {
-      font-style: italic;
+    /* EQUIPPED STATUS BOX */
+    .equip-status {
+      background: #fff8e1;
+      border: 1px dashed #b89f6b;
+      border-radius: 8px;
+      padding: 0.4rem 0.8rem;
+      margin-top: 0.4rem;
+      font-size: 0.8rem;
+      text-align: left;
       color: #5c6b7f;
-      margin-top: 0.6rem;
-      font-size: 0.9rem;
-      border-top: 1px solid #eee;
-      padding-top: 0.6rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
+
+    /* MODALS */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      z-index: 999;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .modal-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 20px;
+      text-align: center;
+      max-width: 380px;
+      width: 85%;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+    }
+    .star-5 { border: 4px solid #ffb300; background: #fff8e1; }
+    .star-4 { border: 4px solid #ab47bc; background: #f3e5f5; }
+    .star-3 { border: 4px solid #29b6f6; background: #e1f5fe; }
+    
+    .inventory-list { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
+    .inventory-item { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; border-radius: 8px; font-size: 0.85rem; background: #f5f5f5; border: 1px solid #ddd; }
+    .inventory-item button { width: auto; padding: 0.3rem 0.6rem; font-size: 0.75rem; border: none; border-radius: 4px; cursor: pointer; }
+    .btn-equip { background: #4caf50; color: white; }
+    .btn-unequip { background: #e53935; color: white; }
+
+    /* LEADERBOARD TABLE */
+    .rank-table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.9rem; }
+    .rank-table th, .rank-table td { padding: 0.5rem; border-bottom: 1px solid #eee; text-align: center; }
+    .rank-table th { background: #f0f4f8; color: #3e4a5e; }
+
+    .result { margin-top: 0.8rem; padding: 0.8rem; border-radius: 12px; font-weight: bold; background: white; border: 2px solid #b89f6b; text-align: left; display: none; }
   </style>
 </head>
+
 <body>
 
   <div class="card" id="mainCard">
-    <span class="badge">✨ TEYVAT BRANCH ✨</span>
-    <h1>☕ Caffeine Oracle</h1>
-    
-    <!-- Audio Player Controls -->
-    <div class="audio-player-box">
-      <button id="bgmToggleBtn" onclick="toggleBGM()">🎵 BGM: Off</button>
-      <div style="display: flex; align-items: center; gap: 5px; font-size: 0.8rem; color: #5c6b7f;">
-        🔊 <input type="range" id="volumeControl" class="volume-slider" min="0" max="1" step="0.1" value="0.3" onchange="adjustVolume(this.value)">
-      </div>
+    <span class="badge">✨ TEYVAT REFLEX LAB ✨</span>
+    <h1>⚡ 提瓦特反应力测试与英雄榜</h1>
+
+    <!-- 👤 PLAYER NAME INPUT -->
+    <div class="name-input-group">
+      <label for="playerName">✍️ 请输入探险家姓名 (Player Name):</label>
+      <input type="text" id="playerName" value="旅行者" placeholder="输入你的名字...">
     </div>
 
-    <!-- Daily Counter -->
-    <div class="counter-box">
-      <span>Today's Energy Intake: <strong id="cupCount">0</strong> ☕</span>
-      <div>
-        <button class="counter-btn" onclick="adjustCups(1)">+1</button>
-        <button class="counter-btn" onclick="adjustCups(-1)">-1</button>
+    <!-- MAP SELECTION -->
+    <label for="nation">🗺️ 选择地图背景 (Nation Map):</label>
+    <select id="nation" onchange="changeNationMap()">
+      <option value="mondstadt">🌱 蒙德 - 摘星崖</option>
+      <option value="liyue">🪨 璃月 - 绝云间</option>
+      <option value="inazuma">⚡ 稻妻 - 鸣神大社</option>
+      <option value="fontaine">💧 枫丹 - 歌剧院</option>
+      <option value="natlan">🔥 纳塔 - 圣火竞技场</option>
+    </select>
+
+    <!-- 🏃 RUNNER GAME CANVAS -->
+    <div class="game-container">
+      <div class="game-controls">
+        <span>🏃 分数: <span id="gameScore">0</span></span>
+        <span>💎 咖啡豆: <span id="gemScore">0</span></span>
       </div>
+      <canvas id="runnerCanvas" width="400" height="160"></canvas>
+      <button class="jump-btn" onclick="triggerJump()">🤾 跳跃 JUMP! (空格键 Space)</button>
     </div>
 
-    <!-- Mentor Selection -->
-    <label for="persona" onchange="changePersonaMusic()">Select your Genshin Mentor:</label>
-    <select id="persona" onchange="changePersonaMusic()">
-      <option value="tsundere">Tsundere (Citlali)</option>
-      <option value="shonen">Shonen Hero (Chongyun)</option>
-      <option value="demon">Dark Lord (Wriothesley)</option>
+    <!-- 🛡️ EQUIPPED STATUS DISPLAY -->
+    <div class="equip-status" id="equipStatusDisplay">
+      <div><strong>🛡️ 装备：无</strong></div>
+      <small>(无圣遗物加成)</small>
+    </div>
+
+    <!-- CHARACTER SELECTION -->
+    <label for="persona">👤 选择出战角色 (Character):</label>
+    <select id="persona" onchange="changeMentor()">
+      <option value="xingqiu">🌊 行秋 Xingqiu</option>
+      <option value="citlali">❄️ 茜特菈莉 Citlali</option>
+      <option value="chongyun">❄️ 重云 Chongyun</option>
+      <option value="wriothesley">❄️ 莱欧斯利 Wriothesley</option>
     </select>
     
-    <label for="bedtime">Planned "Log Off" Bedtime:</label>
-    <input type="time" id="bedtime" value="23:00">
-
-    <label for="jitter">Elemental Overload / Jitter Level:</label>
+    <label for="jitter">⚡ 神经兴奋度 (Jitter Level / 速度):</label>
     <select id="jitter" onchange="updateAura()">
-      <option value="1">Level 1: Mortal Calm 🧘</option>
-      <option value="2">Level 2: Charged Up 🚶</option>
-      <option value="3">Level 3: Elemental Resonance ⚡</option>
-      <option value="4">Level 4: Elemental Burst 💥</option>
-      <option value="5">Level 5: C6 Constellation Overload 🌀</option>
+      <option value="1">Level 1: 清醒 Calm (简单)</option>
+      <option value="2">Level 2: 充沛 Charged (正常)</option>
+      <option value="3">Level 3: 共鸣 Resonance (中等)</option>
+      <option value="4">Level 4: 爆发 Burst (快速)</option>
+      <option value="5">Level 5: 过载 Overload (极限!)</option>
     </select>
 
-    <button class="primary" onclick="consultOracle()">✨ SUMMON VERDICT ✨</button>
-
-    <!-- Character Image Container -->
-    <div id="characterPortraitContainer" class="character-portrait-container">
-      <img id="characterPortrait" src="" alt="Genshin Character Portrait" class="character-portrait">
+    <div class="btn-group">
+      <button class="gacha-btn" onclick="pullGacha()">🌠 祈愿 (10豆)</button>
+      <button class="inventory-btn" onclick="openInventory()">🎒 背包</button>
+      <button class="rank-btn" onclick="openLeaderboard()">🏆 排行榜</button>
     </div>
+    
+    <button class="primary" style="margin-top:0.6rem;" onclick="consultOracle()">✨ 评估神经反应力 (CHECK) ✨</button>
 
-    <div id="result" class="result" style="display: none;"></div>
+    <div id="result" class="result"></div>
   </div>
 
-  <audio id="bgmAudio" loop></audio>
+  <!-- 🌠 GACHA MODAL POPUP -->
+  <div id="gachaModal" class="modal">
+    <div id="gachaCard" class="modal-card star-3">
+      <div id="gachaStars" style="font-size:1.2rem; margin-bottom:0.5rem;">⭐⭐⭐</div>
+      <div id="gachaItem" style="font-size:1.3rem; font-weight:bold; margin-bottom:0.5rem;">圣遗物名称</div>
+      <div id="gachaDesc" style="font-size:0.85rem; color:#555; margin-bottom:1rem;">属性描述</div>
+      <button class="jump-btn" onclick="closeGacha()">收下并存入背包</button>
+    </div>
+  </div>
+
+  <!-- 🎒 INVENTORY MODAL -->
+  <div id="inventoryModal" class="modal">
+    <div class="modal-card" style="border: 3px solid #ab47bc;">
+      <h2>🎒 我的圣遗物背包</h2>
+      <div id="inventoryList" class="inventory-list"></div>
+      <button class="jump-btn" style="margin-top:1rem;" onclick="closeInventory()">关闭背包</button>
+    </div>
+  </div>
+
+  <!-- 🏆 LEADERBOARD MODAL -->
+  <div id="leaderboardModal" class="modal">
+    <div class="modal-card" style="border: 3px solid #0288d1;">
+      <h2>🏆 提瓦特反应力英雄榜</h2>
+      <table class="rank-table">
+        <thead>
+          <tr>
+            <th>名次</th>
+            <th>探险家</th>
+            <th>反应力得分</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboardRows">
+          <!-- 排行榜数据列 -->
+        </tbody>
+      </table>
+      <button class="jump-btn" style="margin-top:1rem;" onclick="closeLeaderboard()">关闭排行榜</button>
+    </div>
+  </div>
 
   <script>
+    // ==========================================
+    // 📸 1. 图片资源管理 (角色/地图/怪物)
+    // ==========================================
     const characterImageData = {
-      'tsundere': 'Citlali sticker 4_5.jpg',
-      'shonen':   'Chongyun !.jpg',
-      'demon':    '★ Wriothesley.jpg'
+      'xingqiu':     'images/xingqiu.jpg',
+      'citlali':     'images/citlali.jpg',
+      'chongyun':    'images/chongyun.jpg',
+      'wriothesley': 'images/wriothesley.jpg'
     };
 
-    const characterAudioData = {
-      'tsundere': 'Beneath the Mask -instrumental version-.mp3',
-      'shonen':   'Color Your Night (Instrumental).mp3',
-      'demon':    'Heaven (Instrumental).mp3'
+    // 👾 怪物图片留位 (地面丘丘人/史莱姆 & 空中风飘浮灵)
+    const monsterImages = {
+      hilichurl: new Image(),
+      slime: new Image(),
+      specter: new Image()
+    };
+    monsterImages.hilichurl.src = 'images/hilichurl.png'; // 地面：丘丘人
+    monsterImages.slime.src     = 'images/slime.png';     // 地面：史莱姆
+    monsterImages.specter.src   = 'images/specter.png';   // 空中：风飘浮灵
+
+    const mapThemes = {
+      'mondstadt': { sky: '#e0f2fe', ground: '#4caf50', obstacle: '#ff7043' },
+      'liyue':     { sky: '#fff8e1', ground: '#fbc02d', obstacle: '#8d6e63' },
+      'inazuma':   { sky: '#f3e5f5', ground: '#ab47bc', obstacle: '#7e57c2' },
+      'fontaine':  { sky: '#e0f7fa', ground: '#0288d1', obstacle: '#26c6da' },
+      'natlan':    { sky: '#fbe9e7', ground: '#d84315', obstacle: '#ff1744' }
     };
 
-    const genshinDrinks = [
-      "🌿 Adeptus Special Mint Brew",
-      "🥂 Dawn Winery Grape Juice (Decaf)",
-      "🥛 Mondstadt Warm Milk",
-      "🧪 Sucrose's Special Alchemy Elixir (Decaf)"
-    ];
+    // ==========================================
+    // 🎒 2. 背包与圣遗物数据
+    // ==========================================
+    let inventory = [];
+    let equippedArtifact = null; // 当前装备
+    let hasShield = false;       // 护盾标记
 
-    const bgm = document.getElementById('bgmAudio');
-    let isMusicPlaying = false;
-    bgm.volume = 0.3;
+    const gachaPool = {
+      5: [
+        { id: 'flower_5', star: 5, name: "🌟 生之花：生生不息花", type: "shield", desc: "【护盾】抵挡 1 次与怪物/障碍物的碰撞！" },
+        { id: 'feather_5', star: 5, name: "🌟 死之羽：风行羽毛", type: "jump", desc: "【轻功】增强跳跃高度与滞空力！" }
+      ],
+      4: [
+        { id: 'sand_4', star: 4, name: "💜 时之沙：双倍咖啡沙漏", type: "gem", desc: "【双倍】吃 1 个咖啡豆获得 20 咖啡豆！" }
+      ],
+      3: [
+        { id: 'crown_3', star: 3, name: "💙 理之冠：学者帽子", type: "none", desc: "【装饰】无特殊属性加成。" }
+      ]
+    };
 
-    function toggleBGM() {
-      const btn = document.getElementById('bgmToggleBtn');
-      if (isMusicPlaying) {
-        bgm.pause();
-        isMusicPlaying = false;
-        btn.innerText = "🎵 BGM: Off";
-      } else {
-        playMusicForCurrentPersona();
-      }
-    }
-
-    function adjustVolume(val) {
-      bgm.volume = val;
-    }
-
-    function changePersonaMusic() {
-      if (isMusicPlaying) {
-        playMusicForCurrentPersona();
-      }
-    }
-
-    function playMusicForCurrentPersona() {
-      const persona = document.getElementById('persona').value;
-      const audioFile = characterAudioData[persona];
-      const btn = document.getElementById('bgmToggleBtn');
-
-      if (audioFile && !audioFile.startsWith('REPLACE_WITH')) {
-        if (!bgm.src.endsWith(audioFile)) {
-          bgm.src = audioFile;
-        }
-        bgm.play().then(() => {
-          isMusicPlaying = true;
-          btn.innerText = "🎵 BGM: Playing";
-        }).catch(err => {
-          console.log("Browser prevented autoplay. User must interact first.");
-        });
-      }
-    }
-
-    let cups = parseInt(localStorage.getItem('genshinCoffeeCount')) || 0;
-    document.getElementById('cupCount').innerText = cups;
-
-    function adjustCups(amount) {
-      cups = Math.max(0, cups + amount);
-      localStorage.setItem('genshinCoffeeCount', cups);
-      document.getElementById('cupCount').innerText = cups;
-    }
-
-    // ========================================================
-    // Dynamic Aura Update Logic for All 5 Levels
-    // ========================================================
     function updateAura() {
       const jitter = parseInt(document.getElementById('jitter').value);
       const card = document.getElementById('mainCard');
-      
-      // Clear previous level classes
-      card.classList.remove('effect-level-1', 'effect-level-2', 'effect-level-3', 'effect-level-4', 'effect-level-5');
-      
-      // Apply class corresponding to current level
-      if (jitter >= 1 && jitter <= 5) {
-        card.classList.add(`effect-level-${jitter}`);
+      card.className = "card effect-level-" + jitter;
+    }
+    window.addEventListener('DOMContentLoaded', updateAura);
+
+    // ==========================================
+    // 🏃 3. 跑酷游戏逻辑 (含地面/空中怪物)
+    // ==========================================
+    const canvas = document.getElementById('runnerCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    let score = 0;
+    let gems = 0;
+    let gameFrame = 0;
+    let isGameOver = false;
+
+    const runnerImage = new Image();
+    function updateRunnerSprite() {
+      const persona = document.getElementById('persona').value;
+      runnerImage.src = characterImageData[persona] || '';
+    }
+    updateRunnerSprite();
+    function changeMentor() { updateRunnerSprite(); }
+
+    let currentMap = mapThemes['mondstadt'];
+    function changeNationMap() {
+      const selectedNation = document.getElementById('nation').value;
+      currentMap = mapThemes[selectedNation];
+    }
+
+    const runner = {
+      x: 30, y: 95, width: 35, height: 35,
+      vy: 0, gravity: 0.6, jumping: false
+    };
+
+    let obstacles = [];
+    let coffeeBeans = [];
+
+    function triggerJump() {
+      if (!runner.jumping && !isGameOver) {
+        // 装备羽毛后跳得更高
+        const jumpForce = (equippedArtifact && equippedArtifact.type === 'jump') ? -12.5 : -10;
+        runner.vy = jumpForce;
+        runner.jumping = true;
+      }
+      if (isGameOver) resetGame();
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'Space') {
+        e.preventDefault();
+        triggerJump();
+      }
+    });
+
+    // 多样化怪物生成逻辑 (地面 + 空中)
+    function spawnGameElements() {
+      const jitterLevel = parseInt(document.getElementById('jitter').value) || 1;
+      const spawnRate = Math.max(45, 110 - (jitterLevel * 10));
+
+      if (gameFrame % spawnRate === 0) {
+        const isAir = Math.random() > 0.55; // 45% 概率生成空中飘浮灵怪物
+        
+        obstacles.push({
+          x: canvas.width,
+          y: isAir ? 45 : 95, // 空中高度 45, 地面高度 95
+          width: 30,
+          height: 30,
+          isAir: isAir,
+          monsterType: isAir ? 'specter' : (Math.random() > 0.5 ? 'hilichurl' : 'slime')
+        });
+      }
+
+      if (gameFrame % 90 === 0) {
+        coffeeBeans.push({ x: canvas.width, y: 65, width: 16, height: 16 });
       }
     }
 
-    // Initialize Aura on startup
-    window.addEventListener('DOMContentLoaded', updateAura);
+    function updateGame() {
+      if (isGameOver) return;
 
-    function consultOracle() {
-      if (!isMusicPlaying) {
-        playMusicForCurrentPersona();
+      gameFrame++;
+      score++;
+      document.getElementById('gameScore').innerText = Math.floor(score / 5);
+
+      runner.vy += runner.gravity;
+      runner.y += runner.vy;
+      if (runner.y > 95) {
+        runner.y = 95;
+        runner.vy = 0;
+        runner.jumping = false;
       }
 
-      const bedtimeInput = document.getElementById('bedtime').value;
-      const jitter = parseInt(document.getElementById('jitter').value);
-      const persona = document.getElementById('persona').value;
-      const resultDiv = document.getElementById('result');
-      const portraitContainer = document.getElementById('characterPortraitContainer');
-      const portraitImg = document.getElementById('characterPortrait');
+      spawnGameElements();
 
-      if (!bedtimeInput) {
-        resultDiv.innerText = "Please set a log-off time first!";
-        resultDiv.style.display = 'block';
-        portraitContainer.classList.remove('show');
+      const jitterLevel = parseInt(document.getElementById('jitter').value) || 1;
+      const moveSpeed = 3.2 + (jitterLevel * 1.3); 
+
+      // 怪物碰撞检测
+      for (let i = 0; i < obstacles.length; i++) {
+        obstacles[i].x -= moveSpeed;
+        if (
+          runner.x < obstacles[i].x + obstacles[i].width &&
+          runner.x + runner.width > obstacles[i].x &&
+          runner.y < obstacles[i].y + obstacles[i].height &&
+          runner.y + runner.height > obstacles[i].y
+        ) {
+          // 🛡️ 护盾判断
+          if (hasShield) {
+            hasShield = false;
+            obstacles.splice(i, 1);
+            i--;
+            alert("🛡️ 圣遗物护盾挡下了怪物的攻击！");
+            continue;
+          }
+          handleGameOver();
+        }
+      }
+
+      // 咖啡豆检测
+      for (let i = 0; i < coffeeBeans.length; i++) {
+        coffeeBeans[i].x -= moveSpeed;
+        if (
+          runner.x < coffeeBeans[i].x + coffeeBeans[i].width &&
+          runner.x + runner.width > coffeeBeans[i].x &&
+          runner.y < coffeeBeans[i].y + coffeeBeans[i].height &&
+          runner.y + runner.height > coffeeBeans[i].y
+        ) {
+          const gainGems = (equippedArtifact && equippedArtifact.type === 'gem') ? 20 : 10;
+          gems += gainGems;
+          document.getElementById('gemScore').innerText = gems;
+          coffeeBeans.splice(i, 1);
+          i--;
+        }
+      }
+
+      obstacles = obstacles.filter(obs => obs.x > -30);
+      coffeeBeans = coffeeBeans.filter(bean => bean.x > -20);
+    }
+
+    function drawGame() {
+      // 背景
+      ctx.fillStyle = currentMap.sky;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // 地面
+      ctx.fillStyle = currentMap.ground;
+      ctx.fillRect(0, 130, canvas.width, 30);
+
+      // 角色
+      if (runnerImage.complete && runnerImage.naturalWidth !== 0) {
+        ctx.drawImage(runnerImage, runner.x, runner.y, runner.width, runner.height);
+      } else {
+        ctx.fillStyle = '#3e4a5e';
+        ctx.fillRect(runner.x, runner.y, runner.width, runner.height);
+      }
+
+      // 护盾效果
+      if (hasShield) {
+        ctx.strokeStyle = '#ffb300';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.arc(runner.x + 17, runner.y + 17, 24, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      // 👾 绘制怪物 (优先绘制图片，无图片绘制备用彩色方块)
+      obstacles.forEach(obs => {
+        const img = monsterImages[obs.monsterType];
+        if (img && img.complete && img.naturalWidth !== 0) {
+          ctx.drawImage(img, obs.x, obs.y, obs.width, obs.height);
+        } else {
+          // 备用颜色：空中紫粉色，地面橙褐色
+          ctx.fillStyle = obs.isAir ? '#ab47bc' : currentMap.obstacle;
+          ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
+        }
+      });
+
+      // 咖啡豆
+      ctx.fillStyle = '#795548';
+      coffeeBeans.forEach(bean => ctx.fillRect(bean.x, bean.y, bean.width, bean.height));
+
+      if (isGameOver) {
+        ctx.fillStyle = 'rgba(0,0,0,0.65)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '15px Segoe UI';
+        ctx.fillText('💥 被怪物击中！点击或按空格键重来', 80, 85);
+      }
+    }
+
+    function gameLoop() {
+      updateGame();
+      drawGame();
+      requestAnimationFrame(gameLoop);
+    }
+
+    function handleGameOver() {
+      isGameOver = true;
+      const finalScore = Math.floor(score / 5);
+      const name = document.getElementById('playerName').value || '匿名探险家';
+      saveScoreToLeaderboard(name, finalScore);
+    }
+
+    function resetGame() {
+      obstacles = [];
+      coffeeBeans = [];
+      score = 0;
+      isGameOver = false;
+      gameFrame = 0;
+      if (equippedArtifact && equippedArtifact.type === 'shield') hasShield = true;
+    }
+
+    gameLoop();
+
+    // ==========================================
+    // 🏆 4. 排行榜 (LEADERBOARD) 逻辑
+    // ==========================================
+    function saveScoreToLeaderboard(name, scoreVal) {
+      let ranks = JSON.parse(localStorage.getItem('genshinReflexRanks') || '[]');
+      ranks.push({ name: name, score: scoreVal });
+      ranks.sort((a, b) => b.score - a.score); // 降序排列
+      ranks = ranks.slice(0, 5); // 只保留前 5 名
+      localStorage.setItem('genshinReflexRanks', JSON.stringify(ranks));
+    }
+
+    function openLeaderboard() {
+      const tbody = document.getElementById('leaderboardRows');
+      tbody.innerHTML = "";
+      const ranks = JSON.parse(localStorage.getItem('genshinReflexRanks') || '[]');
+
+      if (ranks.length === 0) {
+        tbody.innerHTML = "<tr><td colspan='3'>尚无数据，快去挑战吧！</td></tr>";
+      } else {
+        ranks.forEach((r, index) => {
+          const medal = index === 0 ? '🥇' : (index === 1 ? '🥈' : (index === 2 ? '🥉' : index + 1));
+          tbody.innerHTML += `
+            <tr>
+              <td><strong>${medal}</strong></td>
+              <td>${r.name}</td>
+              <td><strong>${r.score} 分</strong></td>
+            </tr>
+          `;
+        });
+      }
+      document.getElementById('leaderboardModal').style.display = 'flex';
+    }
+
+    function closeLeaderboard() {
+      document.getElementById('leaderboardModal').style.display = 'none';
+    }
+
+    // ==========================================
+    // 🎒 5. 背包与装备/卸下逻辑 (UNEQUIP)
+    // ==========================================
+    function pullGacha() {
+      if (gems < 10) {
+        alert("咖啡豆不足！在跑酷游戏里多吃点咖啡豆吧！（需要 10 咖啡豆）");
         return;
       }
+      gems -= 10;
+      document.getElementById('gemScore').innerText = gems;
 
-      const now = new Date();
-      const [bedHour, bedMin] = bedtimeInput.split(':').map(Number);
-      let bedtime = new Date();
-      bedtime.setHours(bedHour, bedMin, 0, 0);
+      const rand = Math.random() * 100;
+      let star = 3;
+      if (rand < 15) star = 5;
+      else if (rand < 45) star = 4;
 
-      if (bedtime < now) bedtime.setDate(bedtime.getDate() + 1);
-      const hoursUntilBed = (bedtime - now) / (1000 * 60 * 60);
+      const items = gachaPool[star];
+      const item = items[Math.floor(Math.random() * items.length)];
 
-      const imageFile = characterImageData[persona];
-      if (imageFile && !imageFile.startsWith('REPLACE_WITH')) {
-        portraitImg.src = imageFile;
-        portraitContainer.classList.add('show');
+      inventory.push(item);
+
+      const card = document.getElementById('gachaCard');
+      card.className = `modal-card star-${star}`;
+      document.getElementById('gachaStars').innerText = star === 5 ? "⭐⭐⭐⭐⭐" : (star === 4 ? "⭐⭐⭐⭐" : "⭐⭐⭐");
+      document.getElementById('gachaItem').innerText = item.name;
+      document.getElementById('gachaDesc').innerText = item.desc;
+
+      document.getElementById('gachaModal').style.display = 'flex';
+    }
+
+    function closeGacha() { document.getElementById('gachaModal').style.display = 'none'; }
+
+    function openInventory() {
+      const listDiv = document.getElementById('inventoryList');
+      listDiv.innerHTML = "";
+
+      if (inventory.length === 0) {
+        listDiv.innerHTML = "<div style='color:#888;'>背包空空如也，快去祈愿抽卡吧！</div>";
       } else {
-        portraitContainer.classList.remove('show');
+        inventory.forEach((item, index) => {
+          const itemDiv = document.createElement('div');
+          itemDiv.className = 'inventory-item';
+          
+          const isEquipped = equippedArtifact && equippedArtifact.name === item.name;
+          
+          itemDiv.innerHTML = `
+            <div style="text-align:left;">
+              <strong>${item.name}</strong><br>
+              <small style="color:#666;">${item.desc}</small>
+            </div>
+            ${isEquipped 
+              ? `<button class="btn-unequip" onclick="unequipItem()">卸下</button>` 
+              : `<button class="btn-equip" onclick="equipItem(${index})">装备</button>`
+            }
+          `;
+          listDiv.appendChild(itemDiv);
+        });
       }
 
-      let isAllowed = true;
-      let reason = "";
+      document.getElementById('inventoryModal').style.display = 'flex';
+    }
 
-      if (jitter >= 4) {
-        isAllowed = false;
-        reason = "Your elemental overload (jitter) is maxed out! Drinking more will cause an elemental reaction meltdown!";
-      } else if (hoursUntilBed < 6) {
-        isAllowed = false;
-        reason = `Bedtime is in ${hoursUntilBed.toFixed(1)} hours! Drink now and you'll wander Mondstadt as a restless phantom all night!`;
-      } else if (cups >= 4) {
-        isAllowed = false;
-        reason = "You've already consumed 4+ cups today! Your elemental reserves need to recharge!";
+    function closeInventory() { document.getElementById('inventoryModal').style.display = 'none'; }
+
+    function equipItem(index) {
+      equippedArtifact = inventory[index];
+      hasShield = (equippedArtifact.type === 'shield');
+
+      updateEquipUI();
+      closeInventory();
+      alert(`成功装备【${equippedArtifact.name}】！`);
+    }
+
+    // 🔓 卸下装备逻辑
+    function unequipItem() {
+      equippedArtifact = null;
+      hasShield = false;
+
+      updateEquipUI();
+      openInventory(); // 刷新背包视图
+      alert("已卸下装备！");
+    }
+
+    function updateEquipUI() {
+      const display = document.getElementById('equipStatusDisplay');
+      if (equippedArtifact) {
+        display.innerHTML = `
+          <div><strong>🛡️ 已装备：${equippedArtifact.name}</strong></div>
+          <small>(${equippedArtifact.desc})</small>
+        `;
       } else {
-        isAllowed = true;
-        reason = "You have room in your energy bar. The Adventurers' Guild contract is fulfilled!";
+        display.innerHTML = `
+          <div><strong>🛡️ 装备：无</strong></div>
+          <small>(无圣遗物加成)</small>
+        `;
       }
+    }
 
-      let personaMessage = "";
-      if (persona === "tsundere") {
-        personaMessage = isAllowed 
-          ? "“Hmph, fine! Drink it if you want! It's not like I brewed extra just because I was worried you were tired or anything... dummy (B-Baka)!”" 
-          : "“Stop right there, idiot! Drink any more and you won't sleep at all! I... I definitely don't want to stay up all night keeping you company!”";
-      } else if (persona === "shonen") {
-        personaMessage = isAllowed 
-          ? "“All right! Ignite your caffeine spirit! Push past your limits and let's keep exploring today! PLUS ULTRA! 🔥”" 
-          : "“Halt! A true adventurer knows when to rest and recover! Sleep well tonight so we can team up tomorrow!”";
-      } else if (persona === "demon") {
-        personaMessage = isAllowed 
-          ? "“Heh, I grant you permission to partake in this dark elixir... Unleash the sealed power within you! Bwahahaha!”" 
-          : "“Warning! Your mortal body cannot withstand the abyss of the black nectar (Coffee)! Step back from this forbidden power!”";
-      }
+    // 科学评估 Verdict
+    function consultOracle() {
+      const jitter = parseInt(document.getElementById('jitter').value);
+      const name = document.getElementById('playerName').value || '旅行者';
+      const currentScore = Math.floor(score / 5);
+      const resultDiv = document.getElementById('result');
 
-      let html = `<div><strong>Verdict:</strong> ${isAllowed ? "✅ APPROVED (Brew Away)" : "❌ DENIED (Step Away)"}</div>`;
-      html += `<div style="margin-top:0.3rem;">${reason}</div>`;
-      html += `<div class="persona-quote">${personaMessage}</div>`;
+      let isAllowed = currentScore >= 15 && jitter <= 3;
+      let reason = isAllowed 
+        ? `🎉 <strong>反应力合格！</strong> 探险家【${name}】冲刺获得 <strong>${currentScore} 分</strong>，成功通过测试！`
+        : `🐢 <strong>神经过载或反应较慢！</strong> 冲刺分数为 <strong>${currentScore} 分</strong>，建议降低兴奋度再试！`;
 
-      if (!isAllowed) {
-        const randomAlt = genshinDrinks[Math.floor(Math.random() * genshinDrinks.length)];
-        html += `<div style="margin-top:0.6rem; font-size:0.85rem; color:#888;">🍵 Recommended Alternative Elixir: <strong>${randomAlt}</strong></div>`;
-      }
+      let html = `<div><strong>科学判定 Verdict:</strong> ${isAllowed ? "✅ PASSED (合格)" : "❌ FAILED (未合格)"}</div>`;
+      html += `<div style="margin-top:0.4rem; font-size:0.9rem;">${reason}</div>`;
 
       resultDiv.innerHTML = html;
       resultDiv.style.display = 'block';
