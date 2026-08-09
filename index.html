@@ -3,11 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>☕ Genshin Reflex Master | 反应力实验室与英雄榜</title>
+  <title>☕ 提瓦特神经反应力测试实验室</title>
   <style>
+    :root {
+      --primary-gold: #cda250;
+      --dark-blue: #2c3e50;
+      --bg-gradient: linear-gradient(135deg, #eef2f3 0%, #8e9eab 100%);
+      --card-bg: rgba(255, 255, 255, 0.92);
+    }
+
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #e0f7fa 0%, #fffde7 100%);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg-gradient);
       color: #333;
       display: flex;
       justify-content: center;
@@ -18,636 +25,567 @@
       box-sizing: border-box;
     }
 
-    .card {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      padding: 1.5rem;
+    /* 主界面卡片 (Clean Dashboard Card) */
+    .dashboard-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      padding: 2rem;
       border-radius: 20px;
-      box-shadow: 0 15px 35px rgba(218, 165, 32, 0.15);
-      max-width: 480px;
       width: 100%;
+      max-width: 440px;
       text-align: center;
-      border: 3px solid #b89f6b;
-      position: relative;
-      transition: all 0.3s ease;
-      overflow: hidden;
-    }
-
-    /* Jitter Border Effects */
-    .effect-level-1 { border-color: #80cbc4 !important; box-shadow: 0 0 18px rgba(128, 203, 196, 0.6) !important; }
-    .effect-level-2 { border-color: #4dd0e1 !important; box-shadow: 0 0 20px #4dd0e1 !important; }
-    .effect-level-3 { border-color: #b388ff !important; box-shadow: 0 0 25px #b388ff !important; }
-    .effect-level-4 { border-color: #ff9100 !important; box-shadow: 0 0 30px #ff9100 !important; }
-    .effect-level-5 { border-color: #ff0055 !important; animation: overloadHue 1.2s linear infinite; }
-    @keyframes overloadHue { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
-
-    h1 { margin-top: 0; color: #3e4a5e; font-size: 1.4rem; }
-    .badge { background: #b89f6b; color: #fffde7; padding: 0.2rem 0.8rem; border-radius: 12px; font-size: 0.8rem; font-weight: bold; display: inline-block; margin-bottom: 0.5rem; }
-    label { display: block; margin: 0.5rem 0 0.2rem; text-align: left; font-weight: bold; font-size: 0.85rem; color: #5c6b7f; }
-    input, select, button { width: 100%; padding: 0.6rem; border-radius: 10px; border: 2px solid #e0e0e0; font-size: 0.9rem; outline: none; background-color: #fafafa; box-sizing: border-box; }
-    
-    .name-input-group { margin-bottom: 0.6rem; text-align: left; }
-    .name-input-group input { border: 2px solid #b89f6b; background: #fff8e1; font-weight: bold; }
-
-    .btn-group { display: flex; gap: 0.4rem; margin-top: 0.8rem; }
-    button.primary { background: linear-gradient(45deg, #3e4a5e, #5c6b7f); color: white; border: none; font-weight: bold; cursor: pointer; }
-    button.gacha-btn { background: linear-gradient(45deg, #ff9100, #ff5722); color: white; border: none; font-weight: bold; cursor: pointer; }
-    button.inventory-btn { background: linear-gradient(45deg, #ab47bc, #7e57c2); color: white; border: none; font-weight: bold; cursor: pointer; }
-    button.rank-btn { background: linear-gradient(45deg, #0288d1, #0097a7); color: white; border: none; font-weight: bold; cursor: pointer; }
-
-    /* RUNNER GAME CANVAS */
-    .game-container {
-      margin: 0.8rem 0;
-      background: #e0f2fe;
-      border: 2px solid #b89f6b;
-      border-radius: 12px;
-      overflow: hidden;
+      border: 2px solid var(--primary-gold);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
       position: relative;
     }
-    canvas { display: block; width: 100%; height: 160px; }
-    .game-controls { display: flex; justify-content: space-between; padding: 0.4rem 0.8rem; background: #fffde7; font-size: 0.85rem; font-weight: bold; color: #5c6b7f; }
-    .jump-btn { background: #3e4a5e; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; width: auto; margin: 0.4rem 0; font-weight: bold; }
 
-    /* EQUIPPED STATUS BOX */
-    .equip-status {
-      background: #fff8e1;
-      border: 1px dashed #b89f6b;
-      border-radius: 8px;
-      padding: 0.4rem 0.8rem;
-      margin-top: 0.4rem;
-      font-size: 0.8rem;
+    .badge {
+      background: var(--primary-gold);
+      color: white;
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    h1 {
+      margin: 0.8rem 0 1.2rem;
+      font-size: 1.4rem;
+      color: var(--dark-blue);
+    }
+
+    .form-group {
       text-align: left;
-      color: #5c6b7f;
+      margin-bottom: 0.9rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: #555;
+      margin-bottom: 0.3rem;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.65rem;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      background: #fdfdfd;
+      font-size: 0.9rem;
+      box-sizing: border-box;
+      outline: none;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--primary-gold);
+      box-shadow: 0 0 5px rgba(205, 162, 80, 0.4);
+    }
+
+    /* 按钮组与主要按钮 */
+    .btn-main {
+      width: 100%;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #2c3e50, #3498db);
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: transform 0.2s, background 0.3s;
+      margin-top: 0.5rem;
+    }
+
+    .btn-main:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, #1a252f, #2980b9);
+    }
+
+    .btn-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      margin-top: 0.8rem;
+    }
+
+    .btn-sub {
+      padding: 0.6rem;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-gacha { background: linear-gradient(135deg, #e67e22, #d35400); }
+    .btn-inv { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+    .btn-rank { background: linear-gradient(135deg, #16a085, #1abc9c); }
+    .btn-sub:hover { opacity: 0.9; }
+
+    /* 状态面板 */
+    .status-bar {
+      background: #f8f9fa;
+      border: 1px dashed var(--primary-gold);
+      border-radius: 10px;
+      padding: 0.6rem;
+      margin-top: 1rem;
+      font-size: 0.85rem;
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      color: #555;
     }
 
-    /* MODALS */
-    .modal {
+    /* 🎮 独立游戏界面 (Game Screen Overlay / Fullscreen) */
+    .game-overlay {
       display: none;
       position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.85);
-      z-index: 999;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(15, 23, 42, 0.95);
+      z-index: 9999;
       justify-content: center;
       align-items: center;
       flex-direction: column;
     }
+
+    .game-container {
+      background: #1e293b;
+      border: 3px solid var(--primary-gold);
+      border-radius: 16px;
+      padding: 1rem;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 0 30px rgba(205, 162, 80, 0.3);
+      text-align: center;
+      position: relative;
+    }
+
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      font-size: 0.9rem;
+      margin-bottom: 0.6rem;
+    }
+
+    canvas {
+      background: #0f172a;
+      border-radius: 10px;
+      width: 100%;
+      height: 200px;
+      display: block;
+    }
+
+    .game-controls {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.8rem;
+    }
+
+    .btn-jump {
+      flex: 2;
+      padding: 0.8rem;
+      background: var(--primary-gold);
+      color: white;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .btn-control {
+      flex: 1;
+      padding: 0.8rem;
+      background: #475569;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    /* 弹窗通用样式 */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+    }
+
     .modal-card {
       background: white;
       padding: 1.5rem;
-      border-radius: 20px;
-      text-align: center;
-      max-width: 380px;
+      border-radius: 16px;
       width: 85%;
-      max-height: 80vh;
-      overflow-y: auto;
-      box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+      max-width: 360px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     }
-    .star-5 { border: 4px solid #ffb300; background: #fff8e1; }
-    .star-4 { border: 4px solid #ab47bc; background: #f3e5f5; }
-    .star-3 { border: 4px solid #29b6f6; background: #e1f5fe; }
-    
-    .inventory-list { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
-    .inventory-item { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; border-radius: 8px; font-size: 0.85rem; background: #f5f5f5; border: 1px solid #ddd; }
-    .inventory-item button { width: auto; padding: 0.3rem 0.6rem; font-size: 0.75rem; border: none; border-radius: 4px; cursor: pointer; }
-    .btn-equip { background: #4caf50; color: white; }
-    .btn-unequip { background: #e53935; color: white; }
 
-    /* LEADERBOARD TABLE */
-    .rank-table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.9rem; }
-    .rank-table th, .rank-table td { padding: 0.5rem; border-bottom: 1px solid #eee; text-align: center; }
-    .rank-table th { background: #f0f4f8; color: #3e4a5e; }
-
-    .result { margin-top: 0.8rem; padding: 0.8rem; border-radius: 12px; font-weight: bold; background: white; border: 2px solid #b89f6b; text-align: left; display: none; }
+    .result-box {
+      margin-top: 1rem;
+      padding: 0.8rem;
+      border-radius: 10px;
+      background: #fff8e1;
+      border: 1px solid var(--primary-gold);
+      display: none;
+      font-size: 0.85rem;
+      text-align: left;
+    }
   </style>
 </head>
-
 <body>
 
-  <div class="card" id="mainCard">
-    <span class="badge">✨ TEYVAT REFLEX LAB ✨</span>
-    <h1>⚡ 提瓦特反应力测试与英雄榜</h1>
+  <!-- 🏠 主界面 Dashboard -->
+  <div class="dashboard-card">
+    <span class="badge">TEYVAT REFLEX LAB</span>
+    <h1>⚡ 反应力测试与科学控制台</h1>
 
-    <!-- 👤 PLAYER NAME INPUT -->
-    <div class="name-input-group">
-      <label for="playerName">✍️ 请输入探险家姓名 (Player Name):</label>
-      <input type="text" id="playerName" value="旅行者" placeholder="输入你的名字...">
+    <div class="form-group">
+      <label for="pName">✍️ 探险家姓名 (Name):</label>
+      <input type="text" id="pName" value="旅行者" placeholder="输入你的名字...">
     </div>
 
-    <!-- MAP SELECTION -->
-    <label for="nation">🗺️ 选择地图背景 (Nation Map):</label>
-    <select id="nation" onchange="changeNationMap()">
-      <option value="mondstadt">🌱 蒙德 - 摘星崖</option>
-      <option value="liyue">🪨 璃月 - 绝云间</option>
-      <option value="inazuma">⚡ 稻妻 - 鸣神大社</option>
-      <option value="fontaine">💧 枫丹 - 歌剧院</option>
-      <option value="natlan">🔥 纳塔 - 圣火竞技场</option>
-    </select>
+    <div class="form-group">
+      <label for="pChar">👤 选择角色 (Character):</label>
+      <select id="pChar">
+        <option value="🏃">🏃 默认旅行者</option>
+        <option value="🧙‍♂️">🧙‍♂️ 行秋 (水元素)</option>
+        <option value="❄️">❄️ 重云 (冰元素)</option>
+        <option value="🔥">🔥 胡桃 (火元素)</option>
+      </select>
+    </div>
 
-    <!-- 🏃 RUNNER GAME CANVAS -->
-    <div class="game-container">
-      <div class="game-controls">
-        <span>🏃 分数: <span id="gameScore">0</span></span>
-        <span>💎 咖啡豆: <span id="gemScore">0</span></span>
+    <div class="form-group">
+      <label for="pJitter">⚡ 神经兴奋度 (Jitter Level / 速度):</label>
+      <select id="pJitter">
+        <option value="1">Level 1: 清醒 Calm (简单)</option>
+        <option value="2" selected>Level 2: 充沛 Charged (正常)</option>
+        <option value="3">Level 3: 共鸣 Resonance (快速)</option>
+        <option value="4">Level 4: 过载 Overload (极限!)</option>
+      </select>
+    </div>
+
+    <!-- 🎮 主操作按钮 -->
+    <button class="btn-main" onclick="openGameView()">🎮 进入反应力测试游戏</button>
+
+    <div class="btn-grid">
+      <button class="btn-sub btn-gacha" onclick="pullGacha()">🌠 祈愿(10豆)</button>
+      <button class="btn-sub btn-inv" onclick="toggleModal('invModal', true)">🎒 背包</button>
+      <button class="btn-sub btn-rank" onclick="openRank()">🏆 排行榜</button>
+    </div>
+
+    <!-- 当前装备与资源显示 -->
+    <div class="status-bar">
+      <span>💎 咖啡豆: <strong id="gemsDisplay">0</strong></span>
+      <span id="equipText">🛡️ 装备: 无</span>
+    </div>
+
+    <button class="btn-main" style="background: linear-gradient(135deg, #27ae60, #2ecc71); margin-top:0.8rem;" onclick="checkVerdict()">📊 评估神经反应力结果</button>
+
+    <div id="resultBox" class="result-box"></div>
+  </div>
+
+  <!-- 🎮 独立游戏界面 Modal/Overlay -->
+  <div id="gameOverlay" class="game-overlay">
+    <div id="gameContainer" class="game-container">
+      <div class="game-header">
+        <span>🏃 得分: <strong id="scoreDisplay" style="color:#f1c40f;">0</strong></span>
+        <span>💎 咖啡豆: <strong id="gameGemsDisplay" style="color:#3498db;">0</strong></span>
+        <span id="gameEquipDisplay">🛡️ 无</span>
       </div>
-      <canvas id="runnerCanvas" width="400" height="160"></canvas>
-      <button class="jump-btn" onclick="triggerJump()">🤾 跳跃 JUMP! (空格键 Space)</button>
+
+      <canvas id="gameCanvas" width="500" height="200"></canvas>
+
+      <div class="game-controls">
+        <button class="btn-jump" onclick="triggerJump()">🤾 跳跃 (Space)</button>
+        <button class="btn-control" onclick="toggleFullscreen()">📺 全屏</button>
+        <button class="btn-control" style="background:#e74c3c;" onclick="closeGameView()">❌ 退出</button>
+      </div>
     </div>
-
-    <!-- 🛡️ EQUIPPED STATUS DISPLAY -->
-    <div class="equip-status" id="equipStatusDisplay">
-      <div><strong>🛡️ 装备：无</strong></div>
-      <small>(无圣遗物加成)</small>
-    </div>
-
-    <!-- CHARACTER SELECTION -->
-    <label for="persona">👤 选择出战角色 (Character):</label>
-    <select id="persona" onchange="changeMentor()">
-      <option value="xingqiu">🌊 行秋 Xingqiu</option>
-      <option value="citlali">❄️ 茜特菈莉 Citlali</option>
-      <option value="chongyun">❄️ 重云 Chongyun</option>
-      <option value="wriothesley">❄️ 莱欧斯利 Wriothesley</option>
-    </select>
-    
-    <label for="jitter">⚡ 神经兴奋度 (Jitter Level / 速度):</label>
-    <select id="jitter" onchange="updateAura()">
-      <option value="1">Level 1: 清醒 Calm (简单)</option>
-      <option value="2">Level 2: 充沛 Charged (正常)</option>
-      <option value="3">Level 3: 共鸣 Resonance (中等)</option>
-      <option value="4">Level 4: 爆发 Burst (快速)</option>
-      <option value="5">Level 5: 过载 Overload (极限!)</option>
-    </select>
-
-    <div class="btn-group">
-      <button class="gacha-btn" onclick="pullGacha()">🌠 祈愿 (10豆)</button>
-      <button class="inventory-btn" onclick="openInventory()">🎒 背包</button>
-      <button class="rank-btn" onclick="openLeaderboard()">🏆 排行榜</button>
-    </div>
-    
-    <button class="primary" style="margin-top:0.6rem;" onclick="consultOracle()">✨ 评估神经反应力 (CHECK) ✨</button>
-
-    <div id="result" class="result"></div>
   </div>
 
-  <!-- 🌠 GACHA MODAL POPUP -->
+  <!-- 🌠 抽卡弹窗 -->
   <div id="gachaModal" class="modal">
-    <div id="gachaCard" class="modal-card star-3">
-      <div id="gachaStars" style="font-size:1.2rem; margin-bottom:0.5rem;">⭐⭐⭐</div>
-      <div id="gachaItem" style="font-size:1.3rem; font-weight:bold; margin-bottom:0.5rem;">圣遗物名称</div>
-      <div id="gachaDesc" style="font-size:0.85rem; color:#555; margin-bottom:1rem;">属性描述</div>
-      <button class="jump-btn" onclick="closeGacha()">收下并存入背包</button>
+    <div class="modal-card">
+      <h3 id="gachaTitle" style="color:var(--primary-gold);">🌠 获得圣遗物！</h3>
+      <p id="gachaDesc" style="font-size:0.9rem; color:#666;"></p>
+      <button class="btn-main" onclick="toggleModal('gachaModal', false)">收下并存入背包</button>
     </div>
   </div>
 
-  <!-- 🎒 INVENTORY MODAL -->
-  <div id="inventoryModal" class="modal">
-    <div class="modal-card" style="border: 3px solid #ab47bc;">
-      <h2>🎒 我的圣遗物背包</h2>
-      <div id="inventoryList" class="inventory-list"></div>
-      <button class="jump-btn" style="margin-top:1rem;" onclick="closeInventory()">关闭背包</button>
+  <!-- 🎒 背包弹窗 -->
+  <div id="invModal" class="modal">
+    <div class="modal-card">
+      <h3>🎒 我的背包</h3>
+      <div id="invList" style="text-align:left; font-size:0.85rem; margin:1rem 0; max-height:200px; overflow-y:auto;"></div>
+      <button class="btn-main" onclick="toggleModal('invModal', false)">关闭</button>
     </div>
   </div>
 
-  <!-- 🏆 LEADERBOARD MODAL -->
-  <div id="leaderboardModal" class="modal">
-    <div class="modal-card" style="border: 3px solid #0288d1;">
-      <h2>🏆 提瓦特反应力英雄榜</h2>
-      <table class="rank-table">
-        <thead>
-          <tr>
-            <th>名次</th>
-            <th>探险家</th>
-            <th>反应力得分</th>
-          </tr>
-        </thead>
-        <tbody id="leaderboardRows">
-          <!-- 排行榜数据列 -->
-        </tbody>
-      </table>
-      <button class="jump-btn" style="margin-top:1rem;" onclick="closeLeaderboard()">关闭排行榜</button>
+  <!-- 🏆 排行榜弹窗 -->
+  <div id="rankModal" class="modal">
+    <div class="modal-card">
+      <h3>🏆 反应力英雄榜</h3>
+      <div id="rankList" style="margin:1rem 0; font-size:0.9rem;"></div>
+      <button class="btn-main" onclick="toggleModal('rankModal', false)">关闭</button>
     </div>
   </div>
 
   <script>
-    // ==========================================
-    // 📸 1. 图片资源管理 (角色/地图/怪物)
-    // ==========================================
-    const characterImageData = {
-      'xingqiu':     'images/xingqiu.jpg',
-      'citlali':     'images/citlali.jpg',
-      'chongyun':    'images/chongyun.jpg',
-      'wriothesley': 'images/wriothesley.jpg'
-    };
-
-    // 👾 怪物图片留位 (地面丘丘人/史莱姆 & 空中风飘浮灵)
-    const monsterImages = {
-      hilichurl: new Image(),
-      slime: new Image(),
-      specter: new Image()
-    };
-    monsterImages.hilichurl.src = 'images/hilichurl.png'; // 地面：丘丘人
-    monsterImages.slime.src     = 'images/slime.png';     // 地面：史莱姆
-    monsterImages.specter.src   = 'images/specter.png';   // 空中：风飘浮灵
-
-    const mapThemes = {
-      'mondstadt': { sky: '#e0f2fe', ground: '#4caf50', obstacle: '#ff7043' },
-      'liyue':     { sky: '#fff8e1', ground: '#fbc02d', obstacle: '#8d6e63' },
-      'inazuma':   { sky: '#f3e5f5', ground: '#ab47bc', obstacle: '#7e57c2' },
-      'fontaine':  { sky: '#e0f7fa', ground: '#0288d1', obstacle: '#26c6da' },
-      'natlan':    { sky: '#fbe9e7', ground: '#d84315', obstacle: '#ff1744' }
-    };
-
-    // ==========================================
-    // 🎒 2. 背包与圣遗物数据
-    // ==========================================
-    let inventory = [];
-    let equippedArtifact = null; // 当前装备
-    let hasShield = false;       // 护盾标记
-
-    const gachaPool = {
-      5: [
-        { id: 'flower_5', star: 5, name: "🌟 生之花：生生不息花", type: "shield", desc: "【护盾】抵挡 1 次与怪物/障碍物的碰撞！" },
-        { id: 'feather_5', star: 5, name: "🌟 死之羽：风行羽毛", type: "jump", desc: "【轻功】增强跳跃高度与滞空力！" }
-      ],
-      4: [
-        { id: 'sand_4', star: 4, name: "💜 时之沙：双倍咖啡沙漏", type: "gem", desc: "【双倍】吃 1 个咖啡豆获得 20 咖啡豆！" }
-      ],
-      3: [
-        { id: 'crown_3', star: 3, name: "💙 理之冠：学者帽子", type: "none", desc: "【装饰】无特殊属性加成。" }
-      ]
-    };
-
-    function updateAura() {
-      const jitter = parseInt(document.getElementById('jitter').value);
-      const card = document.getElementById('mainCard');
-      card.className = "card effect-level-" + jitter;
-    }
-    window.addEventListener('DOMContentLoaded', updateAura);
-
-    // ==========================================
-    // 🏃 3. 跑酷游戏逻辑 (含地面/空中怪物)
-    // ==========================================
-    const canvas = document.getElementById('runnerCanvas');
+    // 游戏核心变量
+    const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
     
-    let score = 0;
-    let gems = 0;
-    let gameFrame = 0;
-    let isGameOver = false;
+    let score = 0, gems = 0, frame = 0, isGameOver = false;
+    let gameLoopId = null;
+    
+    let player = { x: 40, y: 130, vy: 0, jumping: false };
+    let obstacles = [], coffeeBeans = [];
+    let equippedItem = null, hasShield = false;
+    let inventory = [];
 
-    const runnerImage = new Image();
-    function updateRunnerSprite() {
-      const persona = document.getElementById('persona').value;
-      runnerImage.src = characterImageData[persona] || '';
-    }
-    updateRunnerSprite();
-    function changeMentor() { updateRunnerSprite(); }
-
-    let currentMap = mapThemes['mondstadt'];
-    function changeNationMap() {
-      const selectedNation = document.getElementById('nation').value;
-      currentMap = mapThemes[selectedNation];
+    // ==========================================
+    // 1. 游戏视图控制与全屏功能 (View & Fullscreen)
+    // ==========================================
+    function openGameView() {
+      document.getElementById('gameOverlay').style.display = 'flex';
+      resetGame();
+      if (!gameLoopId) gameLoop();
     }
 
-    const runner = {
-      x: 30, y: 95, width: 35, height: 35,
-      vy: 0, gravity: 0.6, jumping: false
-    };
+    function closeGameView() {
+      document.getElementById('gameOverlay').style.display = 'none';
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(()=>{});
+      }
+    }
 
-    let obstacles = [];
-    let coffeeBeans = [];
+    function toggleFullscreen() {
+      const container = document.getElementById('gameContainer');
+      if (!document.fullscreenElement) {
+        if (container.requestFullscreen) container.requestFullscreen();
+        else if (container.webkitRequestFullscreen) container.webkitRequestFullscreen();
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    }
 
+    // ==========================================
+    // 2. 跑酷物理逻辑 (Runner Logic)
+    // ==========================================
     function triggerJump() {
-      if (!runner.jumping && !isGameOver) {
-        // 装备羽毛后跳得更高
-        const jumpForce = (equippedArtifact && equippedArtifact.type === 'jump') ? -12.5 : -10;
-        runner.vy = jumpForce;
-        runner.jumping = true;
+      if (!player.jumping && !isGameOver) {
+        player.vy = (equippedItem && equippedItem.type === 'jump') ? -12 : -10;
+        player.jumping = true;
       }
       if (isGameOver) resetGame();
     }
 
     window.addEventListener('keydown', (e) => {
-      if (e.code === 'Space') {
+      if (e.code === 'Space' && document.getElementById('gameOverlay').style.display === 'flex') {
         e.preventDefault();
         triggerJump();
       }
     });
 
-    // 多样化怪物生成逻辑 (地面 + 空中)
-    function spawnGameElements() {
-      const jitterLevel = parseInt(document.getElementById('jitter').value) || 1;
-      const spawnRate = Math.max(45, 110 - (jitterLevel * 10));
-
-      if (gameFrame % spawnRate === 0) {
-        const isAir = Math.random() > 0.55; // 45% 概率生成空中飘浮灵怪物
-        
-        obstacles.push({
-          x: canvas.width,
-          y: isAir ? 45 : 95, // 空中高度 45, 地面高度 95
-          width: 30,
-          height: 30,
-          isAir: isAir,
-          monsterType: isAir ? 'specter' : (Math.random() > 0.5 ? 'hilichurl' : 'slime')
-        });
-      }
-
-      if (gameFrame % 90 === 0) {
-        coffeeBeans.push({ x: canvas.width, y: 65, width: 16, height: 16 });
-      }
-    }
-
-    function updateGame() {
+    function update() {
       if (isGameOver) return;
+      frame++; score++;
 
-      gameFrame++;
-      score++;
-      document.getElementById('gameScore').innerText = Math.floor(score / 5);
+      const currentScore = Math.floor(score / 5);
+      document.getElementById('scoreDisplay').innerText = currentScore;
 
-      runner.vy += runner.gravity;
-      runner.y += runner.vy;
-      if (runner.y > 95) {
-        runner.y = 95;
-        runner.vy = 0;
-        runner.jumping = false;
+      // 重力加速度
+      player.vy += 0.55;
+      player.y += player.vy;
+      if (player.y > 130) {
+        player.y = 130; player.vy = 0; player.jumping = false;
       }
 
-      spawnGameElements();
+      // 生成怪物与咖啡豆
+      const jitterVal = parseInt(document.getElementById('pJitter').value);
+      const speed = 3.5 + jitterVal * 1.3;
 
-      const jitterLevel = parseInt(document.getElementById('jitter').value) || 1;
-      const moveSpeed = 3.2 + (jitterLevel * 1.3); 
+      if (frame % Math.max(40, 110 - jitterVal * 12) === 0) {
+        const isAir = Math.random() > 0.5;
+        obstacles.push({ x: canvas.width, y: isAir ? 70 : 135, isAir: isAir });
+      }
 
-      // 怪物碰撞检测
-      for (let i = 0; i < obstacles.length; i++) {
-        obstacles[i].x -= moveSpeed;
-        if (
-          runner.x < obstacles[i].x + obstacles[i].width &&
-          runner.x + runner.width > obstacles[i].x &&
-          runner.y < obstacles[i].y + obstacles[i].height &&
-          runner.y + runner.height > obstacles[i].y
-        ) {
-          // 🛡️ 护盾判断
+      if (frame % 85 === 0) {
+        coffeeBeans.push({ x: canvas.width, y: 90 });
+      }
+
+      // 碰撞判定 (怪物)
+      obstacles.forEach((obs, i) => {
+        obs.x -= speed;
+        if (Math.abs(obs.x - player.x) < 25 && Math.abs(obs.y - player.y) < 25) {
           if (hasShield) {
             hasShield = false;
             obstacles.splice(i, 1);
-            i--;
-            alert("🛡️ 圣遗物护盾挡下了怪物的攻击！");
-            continue;
+            alert("🛡️ 圣遗物护盾挡下了致命攻击！");
+          } else {
+            isGameOver = true;
+            saveScore(currentScore);
           }
-          handleGameOver();
-        }
-      }
-
-      // 咖啡豆检测
-      for (let i = 0; i < coffeeBeans.length; i++) {
-        coffeeBeans[i].x -= moveSpeed;
-        if (
-          runner.x < coffeeBeans[i].x + coffeeBeans[i].width &&
-          runner.x + runner.width > coffeeBeans[i].x &&
-          runner.y < coffeeBeans[i].y + coffeeBeans[i].height &&
-          runner.y + runner.height > coffeeBeans[i].y
-        ) {
-          const gainGems = (equippedArtifact && equippedArtifact.type === 'gem') ? 20 : 10;
-          gems += gainGems;
-          document.getElementById('gemScore').innerText = gems;
-          coffeeBeans.splice(i, 1);
-          i--;
-        }
-      }
-
-      obstacles = obstacles.filter(obs => obs.x > -30);
-      coffeeBeans = coffeeBeans.filter(bean => bean.x > -20);
-    }
-
-    function drawGame() {
-      // 背景
-      ctx.fillStyle = currentMap.sky;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // 地面
-      ctx.fillStyle = currentMap.ground;
-      ctx.fillRect(0, 130, canvas.width, 30);
-
-      // 角色
-      if (runnerImage.complete && runnerImage.naturalWidth !== 0) {
-        ctx.drawImage(runnerImage, runner.x, runner.y, runner.width, runner.height);
-      } else {
-        ctx.fillStyle = '#3e4a5e';
-        ctx.fillRect(runner.x, runner.y, runner.width, runner.height);
-      }
-
-      // 护盾效果
-      if (hasShield) {
-        ctx.strokeStyle = '#ffb300';
-        ctx.lineWidth = 3;
-        ctx.beginPath();
-        ctx.arc(runner.x + 17, runner.y + 17, 24, 0, Math.PI * 2);
-        ctx.stroke();
-      }
-
-      // 👾 绘制怪物 (优先绘制图片，无图片绘制备用彩色方块)
-      obstacles.forEach(obs => {
-        const img = monsterImages[obs.monsterType];
-        if (img && img.complete && img.naturalWidth !== 0) {
-          ctx.drawImage(img, obs.x, obs.y, obs.width, obs.height);
-        } else {
-          // 备用颜色：空中紫粉色，地面橙褐色
-          ctx.fillStyle = obs.isAir ? '#ab47bc' : currentMap.obstacle;
-          ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
         }
       });
 
-      // 咖啡豆
-      ctx.fillStyle = '#795548';
-      coffeeBeans.forEach(bean => ctx.fillRect(bean.x, bean.y, bean.width, bean.height));
+      // 咖啡豆检测
+      coffeeBeans.forEach((bean, i) => {
+        bean.x -= speed;
+        if (Math.abs(bean.x - player.x) < 22 && Math.abs(bean.y - player.y) < 22) {
+          const gain = (equippedItem && equippedItem.type === 'gem') ? 20 : 10;
+          gems += gain;
+          document.getElementById('gameGemsDisplay').innerText = gems;
+          document.getElementById('gemsDisplay').innerText = gems;
+          coffeeBeans.splice(i, 1);
+        }
+      });
 
+      obstacles = obstacles.filter(o => o.x > -30);
+      coffeeBeans = coffeeBeans.filter(b => b.x > -30);
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // 地面
+      ctx.fillStyle = '#27ae60';
+      ctx.fillRect(0, 165, canvas.width, 35);
+
+      // 绘制角色 Emoji
+      ctx.font = '28px sans-serif';
+      ctx.fillText(document.getElementById('pChar').value, player.x, player.y + 25);
+
+      // 护盾效果
+      if (hasShield) {
+        ctx.strokeStyle = '#f1c40f';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.arc(player.x + 14, player.y + 10, 22, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      // 绘制怪物与咖啡豆
+      obstacles.forEach(o => ctx.fillText(o.isAir ? '👾' : '👹', o.x, o.y + 25));
+      coffeeBeans.forEach(b => ctx.fillText('💎', b.x, b.y + 22));
+
+      // 游戏结束遮罩
       if (isGameOver) {
-        ctx.fillStyle = 'rgba(0,0,0,0.65)';
+        ctx.fillStyle = 'rgba(0,0,0,0.7)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = '#ffffff';
-        ctx.font = '15px Segoe UI';
-        ctx.fillText('💥 被怪物击中！点击或按空格键重来', 80, 85);
+        ctx.font = '16px sans-serif';
+        ctx.fillText('💥 被怪物击中！点击跳跃按键重新开始', 120, 105);
       }
     }
 
     function gameLoop() {
-      updateGame();
-      drawGame();
-      requestAnimationFrame(gameLoop);
-    }
-
-    function handleGameOver() {
-      isGameOver = true;
-      const finalScore = Math.floor(score / 5);
-      const name = document.getElementById('playerName').value || '匿名探险家';
-      saveScoreToLeaderboard(name, finalScore);
+      update();
+      draw();
+      gameLoopId = requestAnimationFrame(gameLoop);
     }
 
     function resetGame() {
-      obstacles = [];
-      coffeeBeans = [];
-      score = 0;
-      isGameOver = false;
-      gameFrame = 0;
-      if (equippedArtifact && equippedArtifact.type === 'shield') hasShield = true;
-    }
-
-    gameLoop();
-
-    // ==========================================
-    // 🏆 4. 排行榜 (LEADERBOARD) 逻辑
-    // ==========================================
-    function saveScoreToLeaderboard(name, scoreVal) {
-      let ranks = JSON.parse(localStorage.getItem('genshinReflexRanks') || '[]');
-      ranks.push({ name: name, score: scoreVal });
-      ranks.sort((a, b) => b.score - a.score); // 降序排列
-      ranks = ranks.slice(0, 5); // 只保留前 5 名
-      localStorage.setItem('genshinReflexRanks', JSON.stringify(ranks));
-    }
-
-    function openLeaderboard() {
-      const tbody = document.getElementById('leaderboardRows');
-      tbody.innerHTML = "";
-      const ranks = JSON.parse(localStorage.getItem('genshinReflexRanks') || '[]');
-
-      if (ranks.length === 0) {
-        tbody.innerHTML = "<tr><td colspan='3'>尚无数据，快去挑战吧！</td></tr>";
-      } else {
-        ranks.forEach((r, index) => {
-          const medal = index === 0 ? '🥇' : (index === 1 ? '🥈' : (index === 2 ? '🥉' : index + 1));
-          tbody.innerHTML += `
-            <tr>
-              <td><strong>${medal}</strong></td>
-              <td>${r.name}</td>
-              <td><strong>${r.score} 分</strong></td>
-            </tr>
-          `;
-        });
-      }
-      document.getElementById('leaderboardModal').style.display = 'flex';
-    }
-
-    function closeLeaderboard() {
-      document.getElementById('leaderboardModal').style.display = 'none';
+      obstacles = []; coffeeBeans = []; score = 0; isGameOver = false; frame = 0;
+      if (equippedItem?.type === 'shield') hasShield = true;
     }
 
     // ==========================================
-    // 🎒 5. 背包与装备/卸下逻辑 (UNEQUIP)
+    // 3. 抽卡与背包系统 (Gacha & Inventory)
     // ==========================================
+    const pool = [
+      { name: "🌟 生之花：护盾花瓣", type: "shield", desc: "【护盾】抵挡 1 次碰撞死亡" },
+      { name: "🌟 死之羽：风行羽毛", type: "jump", desc: "【轻功】显著增强跳跃高度" },
+      { name: "💜 时之沙：双倍咖啡沙漏", type: "gem", desc: "【双倍】吃 1 个咖啡豆得 20 豆" }
+    ];
+
     function pullGacha() {
-      if (gems < 10) {
-        alert("咖啡豆不足！在跑酷游戏里多吃点咖啡豆吧！（需要 10 咖啡豆）");
-        return;
-      }
+      if (gems < 10) return alert("咖啡豆不足！在跑酷游戏里吃 10 个咖啡豆再来吧。");
       gems -= 10;
-      document.getElementById('gemScore').innerText = gems;
+      document.getElementById('gemsDisplay').innerText = gems;
+      document.getElementById('gameGemsDisplay').innerText = gems;
 
-      const rand = Math.random() * 100;
-      let star = 3;
-      if (rand < 15) star = 5;
-      else if (rand < 45) star = 4;
-
-      const items = gachaPool[star];
-      const item = items[Math.floor(Math.random() * items.length)];
-
+      const item = pool[Math.floor(Math.random() * pool.length)];
       inventory.push(item);
 
-      const card = document.getElementById('gachaCard');
-      card.className = `modal-card star-${star}`;
-      document.getElementById('gachaStars').innerText = star === 5 ? "⭐⭐⭐⭐⭐" : (star === 4 ? "⭐⭐⭐⭐" : "⭐⭐⭐");
-      document.getElementById('gachaItem').innerText = item.name;
+      document.getElementById('gachaTitle').innerText = "🌠 " + item.name;
       document.getElementById('gachaDesc').innerText = item.desc;
-
-      document.getElementById('gachaModal').style.display = 'flex';
+      toggleModal('gachaModal', true);
+      renderInv();
     }
 
-    function closeGacha() { document.getElementById('gachaModal').style.display = 'none'; }
+    function renderInv() {
+      const list = document.getElementById('invList');
+      list.innerHTML = inventory.length ? "" : "<div style='color:#999;'>背包为空</div>";
+      inventory.forEach((item, i) => {
+        list.innerHTML += `
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem; background:#f0f0f0; padding:0.4rem; border-radius:6px;">
+            <div><strong>${item.name}</strong><br><small style="color:#666;">${item.desc}</small></div>
+            <button style="padding:0.3rem 0.6rem; background:#27ae60; color:white; border:none; border-radius:4px; cursor:pointer;" onclick="equip(${i})">装备</button>
+          </div>`;
+      });
+    }
 
-    function openInventory() {
-      const listDiv = document.getElementById('inventoryList');
-      listDiv.innerHTML = "";
+    function equip(i) {
+      equippedItem = inventory[i];
+      hasShield = (equippedItem.type === 'shield');
+      
+      const txt = "🛡️ " + equippedItem.name;
+      document.getElementById('equipText').innerText = txt;
+      document.getElementById('gameEquipDisplay').innerText = txt;
+      toggleModal('invModal', false);
+      alert(`已装备：${equippedItem.name}`);
+    }
 
-      if (inventory.length === 0) {
-        listDiv.innerHTML = "<div style='color:#888;'>背包空空如也，快去祈愿抽卡吧！</div>";
+    // ==========================================
+    // 4. 排行榜与判定 (Rank & Verdict)
+    // ==========================================
+    function toggleModal(id, show) {
+      document.getElementById(id).style.display = show ? 'flex' : 'none';
+    }
+
+    function saveScore(finalScore) {
+      const name = document.getElementById('pName').value || '旅行者';
+      let ranks = JSON.parse(localStorage.getItem('genshinLabRanks') || '[]');
+      ranks.push({ name: name, score: finalScore });
+      ranks.sort((a, b) => b.score - a.score);
+      localStorage.setItem('genshinLabRanks', JSON.stringify(ranks.slice(0, 5)));
+    }
+
+    function openRank() {
+      let ranks = JSON.parse(localStorage.getItem('genshinLabRanks') || '[]');
+      let html = ranks.length ? "" : "暂无榜单成绩";
+      ranks.forEach((r, i) => {
+        const medal = i === 0 ? '🥇' : (i === 1 ? '🥈' : (i === 2 ? '🥉' : i + 1));
+        html += `<div style="margin-bottom:0.4rem;">${medal} <strong>${r.name}</strong> - ${r.score} 分</div>`;
+      });
+      document.getElementById('rankList').innerHTML = html;
+      toggleModal('rankModal', true);
+    }
+
+    function checkVerdict() {
+      const box = document.getElementById('resultBox');
+      const s = Math.floor(score / 5);
+      const name = document.getElementById('pName').value || '旅行者';
+      box.style.display = 'block';
+
+      if (s >= 15) {
+        box.innerHTML = `✅ <strong>通过评估！</strong><br>探险家【${name}】测试得分 <strong>${s} 分</strong>，在当前兴奋度下反射弧极佳，协调力优秀！`;
       } else {
-        inventory.forEach((item, index) => {
-          const itemDiv = document.createElement('div');
-          itemDiv.className = 'inventory-item';
-          
-          const isEquipped = equippedArtifact && equippedArtifact.name === item.name;
-          
-          itemDiv.innerHTML = `
-            <div style="text-align:left;">
-              <strong>${item.name}</strong><br>
-              <small style="color:#666;">${item.desc}</small>
-            </div>
-            ${isEquipped 
-              ? `<button class="btn-unequip" onclick="unequipItem()">卸下</button>` 
-              : `<button class="btn-equip" onclick="equipItem(${index})">装备</button>`
-            }
-          `;
-          listDiv.appendChild(itemDiv);
-        });
+        box.innerHTML = `❌ <strong>未通过/注意力过载！</strong><br>探险家【${name}】得分 <strong>${s} 分</strong>（建议得分≥15）。建议先降低兴奋度等级再测试！`;
       }
-
-      document.getElementById('inventoryModal').style.display = 'flex';
-    }
-
-    function closeInventory() { document.getElementById('inventoryModal').style.display = 'none'; }
-
-    function equipItem(index) {
-      equippedArtifact = inventory[index];
-      hasShield = (equippedArtifact.type === 'shield');
-
-      updateEquipUI();
-      closeInventory();
-      alert(`成功装备【${equippedArtifact.name}】！`);
-    }
-
-    // 🔓 卸下装备逻辑
-    function unequipItem() {
-      equippedArtifact = null;
-      hasShield = false;
-
-      updateEquipUI();
-      openInventory(); // 刷新背包视图
-      alert("已卸下装备！");
-    }
-
-    function updateEquipUI() {
-      const display = document.getElementById('equipStatusDisplay');
-      if (equippedArtifact) {
-        display.innerHTML = `
-          <div><strong>🛡️ 已装备：${equippedArtifact.name}</strong></div>
-          <small>(${equippedArtifact.desc})</small>
-        `;
-      } else {
-        display.innerHTML = `
-          <div><strong>🛡️ 装备：无</strong></div>
-          <small>(无圣遗物加成)</small>
-        `;
-      }
-    }
-
-    // 科学评估 Verdict
-    function consultOracle() {
-      const jitter = parseInt(document.getElementById('jitter').value);
-      const name = document.getElementById('playerName').value || '旅行者';
-      const currentScore = Math.floor(score / 5);
-      const resultDiv = document.getElementById('result');
-
-      let isAllowed = currentScore >= 15 && jitter <= 3;
-      let reason = isAllowed 
-        ? `🎉 <strong>反应力合格！</strong> 探险家【${name}】冲刺获得 <strong>${currentScore} 分</strong>，成功通过测试！`
-        : `🐢 <strong>神经过载或反应较慢！</strong> 冲刺分数为 <strong>${currentScore} 分</strong>，建议降低兴奋度再试！`;
-
-      let html = `<div><strong>科学判定 Verdict:</strong> ${isAllowed ? "✅ PASSED (合格)" : "❌ FAILED (未合格)"}</div>`;
-      html += `<div style="margin-top:0.4rem; font-size:0.9rem;">${reason}</div>`;
-
-      resultDiv.innerHTML = html;
-      resultDiv.style.display = 'block';
     }
   </script>
 </body>
